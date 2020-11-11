@@ -12,15 +12,15 @@ As of today, I've completed Andrew Ng's Machine Learning online course through C
 Below, you can see one of the projects I completed: taking a cell phone image of my cats (original size of 3000x4000 px), scaling it to 150x200 px, and then running the k-means algorithm to compress the image using only 16 colours! Flat cats!
 
 <center>
-	<img src="/assets/original_cats.png" width="49%"> <img src="/assets/compressed_cats.png" width="49%"> 
+	<img src="/assets/images/2020-03-07/original_cats.png" width="49%"> <img src="/assets/images/2020-03-07/compressed_cats.png" width="49%"> 
 </center>
 
 In another project, we used a linear regression model with non-linear features, which allowed us to move from a linear-decision boundary to a more complicated one. You can see how the decision boundary changed as we varied our regularization parameter (the part of your model that attemps to stop over-correcting - but as you can see, if it's too high, your model will have high bias, and low variance).
 
 For the following images, lambda varies from 0, 1, 10, to 100 starting from top left, moving clockwise:
 <center>
-	<img src="/assets/lambda0.png" width="49%"> <img src="/assets/lambda1.png" width="49%"> 
-	<img src="/assets/lambda10.png" width="49%"> <img src="/assets/lambda100.png" width="49%"> 
+	<img src="/assets/images/2020-03-07/lambda0.png" width="49%"> <img src="/assets/images/2020-03-07/lambda1.png" width="49%"> 
+	<img src="/assets/images/2020-03-07/lambda10.png" width="49%"> <img src="/assets/images/2020-03-07/lambda100.png" width="49%"> 
 </center>
 
 (Please forgive the lack of captions - I'm working on Jekyll + HTML5 integration. For my next post!)
