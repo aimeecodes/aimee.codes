@@ -1,0 +1,188 @@
+/* The sidebar menu */
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 160px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #ffffff; /* White */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  font-family:Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  font-size: 20px;
+  color: ##2E3440;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+  text-decoration: none;
+  background-color: #2E3440;
+  color: #FFFFFF;
+}
+
+/* Style page content */
+.main {
+  margin-left: 170px; /* Width of sidebar + 10px */
+  padding: 10px 10px;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+body {
+    margin-top: 60px auto;
+    margin-left: 170px;
+    width: 70%;
+}
+
+.image-list { list-style: none; }
+
+.container {
+  float: left;
+}
+
+.image {
+  display: inline-block;
+  width: 49%;
+}
+
+.caption {
+  display: block;
+  width: 49%;
+  text-align: center; /* assuming centered captions */
+}
+
+/*nav {
+    border-bottom: 1px solid #d5d5d5;
+    background-color: #B8336A;
+}*/
+
+nav ul, footer ul {
+    font-family: Arial, Helvetica, sans-serif;
+    list-style: none;
+    font-weight: bold;
+}
+nav ul li {
+    display: block;
+    margin-right: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #999;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 3em;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #2E3440;
+}
+
+h2 {
+    font-size: 2.5em;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #2E3440;
+}
+
+h3 {
+    font-size: 2em;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #2E3440;
+}
+
+h4 {
+    font-size: 1.5em;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #2E3440;
+}
+
+h5 {
+    font-size: 1em;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #2E3440;
+}
+
+p {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 12;
+    line-height: 1.4em;
+    color: #333;
+}
+
+ul {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 12;
+    line-height: 1.4em;
+    color: #333;
+    list-style-type: "→ ";
+}
+
+ol li {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    line-height: 1.4em;
+    color: #333;
+}
+
+ul li {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    line-height: 1.4em;
+    color: #333;
+}
+
+footer {
+    border-top: 1px solid #d5d5d5;
+    font-size: .8em;
+}
+
+ul.posts { 
+    font-family:Arial, Helvetica, sans-serif;
+    margin: 20px auto 40px; 
+    font-size: 1em;
+}
+
+ul.posts li {
+    font-family:Arial, Helvetica, sans-serif;
+    list-style: none;
+}
+
+#tags a:link, #tags a:visited {
+  font-family:Arial, Helvetica, sans-serif;
+  background-color: #f1f1f1;
+  color: #2E3440;
+  padding: 1px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 6px;
+}
+
+.table-wrapper {
+  width: 800px;
+  overflow-x: scroll;
+}
+
+div.tags {
+  font-family:Arial, Helvetica, sans-serif;
+}

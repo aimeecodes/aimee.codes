@@ -1,0 +1,421 @@
+<table border="1" class="dataframe">
+  <thead>
+  </thead>
+  <tbody>
+    <tr style="text-align: right; font-family: monospace">
+      <th>Feature</th>
+      <td>PoolQC</td>
+      <td>MiscFeature</td>
+      <td>Alley</td>
+      <td>Fence</td>
+      <td>FireplaceQu</td>
+      <td>LotFrontage</td>
+      <td>GarageYrBlt</td>
+      <td>GarageFinish</td>
+      <td>GarageQual</td>
+      <td>GarageCond</td>
+      <td>GarageType</td>
+      <td>BsmtCond</td>
+      <td>BsmtExposure</td>
+      <td>BsmtQual</td>
+      <td>BsmtFinType2</td>
+      <td>BsmtFinType1</td>
+      <td>MasVnrType</td>
+      <td>MasVnrArea</td>
+      <td>MSZoning</td>
+      <td>Utilities</td>
+      <td>BsmtFullBath</td>
+      <td>BsmtHalfBath</td>
+      <td>Functional</td>
+      <td>___Exterior1st___</td>
+      <td>___Exterior2nd___</td>
+      <td>BsmtFinSF1</td>
+      <td>BsmtFinSF2</td>
+      <td>BsmtUnfSF</td>
+      <td>TotalBsmtSF</td>
+      <td>Electrical</td>
+      <td>KitchenQual</td>
+      <td>GarageCars</td>
+      <td>GarageArea</td>
+      <td>SaleType</td>
+      <td>Id</td>
+      <td>MSSubClass</td>
+      <td>LotArea</td>
+      <td>Street</td>
+      <td>LotShape</td>
+      <td>LandContour</td>
+      <td>LotConfig</td>
+      <td>LandSlope</td>
+      <td>_______Neighborhood_______</td>
+      <td>Condition1</td>
+      <td>Condition2</td>
+      <td>BldgType</td>
+      <td>HouseStyle</td>
+      <td>OverallQual</td>
+      <td>OverallCond</td>
+      <td>YearBuilt</td>
+      <td>YearRemodAdd</td>
+      <td>RoofStyle</td>
+      <td>RoofMatl</td>
+      <td>ExterQual</td>
+      <td>ExterCond</td>
+      <td>Foundation</td>
+      <td>Heating</td>
+      <td>HeatingQC</td>
+      <td>CentralAir</td>
+      <td>1stFlrSF</td>
+      <td>2ndFlrSF</td>
+      <td>LowQualFinSF</td>
+      <td>GrLivArea</td>
+      <td>FullBath</td>
+      <td>HalfBath</td>
+      <td>BedroomAbvGr</td>
+      <td>KitchenAbvGr</td>
+      <td>TotRmsAbvGrd</td>
+      <td>Fireplaces</td>
+      <td>PavedDrive</td>
+      <td>WoodDeckSF</td>
+      <td>OpenPorchSF</td>
+      <td>EnclosedPorch</td>
+      <td>3SsnPorch</td>
+      <td>ScreenPorch</td>
+      <td>PoolArea</td>
+      <td>MiscVal</td>
+      <td>MoSold</td>
+      <td>YrSold</td>
+      <td>SaleCondition</td>
+    </tr>
+    <tr style="text-align: right; font-family: monospace">
+      <th>NA Count</th>
+      <td>2909</td>
+      <td>2814</td>
+      <td>2721</td>
+      <td>2348</td>
+      <td>1420</td>
+      <td>486</td>
+      <td>159</td>
+      <td>159</td>
+      <td>159</td>
+      <td>159</td>
+      <td>157</td>
+      <td>82</td>
+      <td>82</td>
+      <td>81</td>
+      <td>80</td>
+      <td>79</td>
+      <td>24</td>
+      <td>23</td>
+      <td>4</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr style="text-align: right; font-family: monospace">
+      <th>Percentage</th>
+      <td bgcolor="ff7961">0.99657</td>
+      <td bgcolor="ff7961">0.96403</td>
+      <td bgcolor="ff7961">0.93217</td>
+      <td bgcolor="ff7961">0.80439</td>
+      <td bgcolor="ff7961">0.48647</td>
+      <td bgcolor="ff7961">0.1665</td>
+      <td bgcolor="ffb561">0.05447</td>
+      <td bgcolor="ffb561">0.05447</td>
+      <td bgcolor="ffb561">0.05447</td>
+      <td bgcolor="ffb561">0.05447</td>
+      <td bgcolor="ffb561">0.05379</td>
+      <td bgcolor="fff161">0.02809</td>
+      <td bgcolor="fff161">0.02809</td>
+      <td bgcolor="fff161">0.02775</td>
+      <td bgcolor="fff161">0.02741</td>
+      <td bgcolor="fff161">0.02706</td>
+      <td bgcolor="fff161">0.00822</td>
+      <td bgcolor="fff161">0.00788</td>
+      <td bgcolor="fdfbb4">0.00137</td>
+      <td bgcolor="fdfbb4">0.00069</td>
+      <td bgcolor="fdfbb4">0.00069</td>
+      <td bgcolor="fdfbb4">0.00069</td>
+      <td bgcolor="fdfbb4">0.00069</td>
+      <td bgcolor="fdfbb4">0.00034</td>
+      <td bgcolor="fdfbb4">0.00034</td>
+      <td bgcolor="fdfbb4">0.00034</td>
+      <td bgcolor="fdfbb4">0.00034</td>
+      <td bgcolor="fdfbb4">0.00034</td>
+      <td bgcolor="fdfbb4">0.00034</td>
+      <td bgcolor="fdfbb4">0.00034</td>
+      <td bgcolor="fdfbb4">0.00034</td>
+      <td bgcolor="fdfbb4">0.00034</td>
+      <td bgcolor="fdfbb4">0.00034</td>
+      <td bgcolor="fdfbb4">0.00034</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr style="text-align: right; font-family: monospace">
+      <th>Data Type</th>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>float64</td>
+      <td>float64</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>float64</td>
+      <td>object</td>
+      <td>object</td>
+      <td>float64</td>
+      <td>float64</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>float64</td>
+      <td>float64</td>
+      <td>float64</td>
+      <td>float64</td>
+      <td>object</td>
+      <td>object</td>
+      <td>float64</td>
+      <td>float64</td>
+      <td>object</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>object</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>object</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>int64</td>
+      <td>object</td>
+    </tr>
+    <tr style="text-align: right; font-family: monospace">
+      <th>Overview</th>
+      <td>[nan, Ex, Fa, Gd]</td>
+      <td>[nan, Shed, Gar2, Othr, TenC]</td>
+      <td>[nan, Grvl, Pave]</td>
+      <td>[nan, MnPrv, GdWo, GdPrv, MnWw]</td>
+      <td>[nan, TA, Gd, Fa, Ex, Po]</td>
+      <td>[21, 313, 69.0, 68]</td>
+      <td>[1895, 2207, 1978.0, 1979]</td>
+      <td>[RFn, Unf, Fin, nan]</td>
+      <td>[TA, Fa, Gd, nan, Ex, Po]</td>
+      <td>[TA, Fa, nan, Gd, Po, Ex]</td>
+      <td>[Attchd, Detchd, BuiltIn, CarPort, nan, Basment, 2Types]</td>
+      <td>[TA, Gd, nan, Fa, Po]</td>
+      <td>[No, Gd, Mn, Av, nan]</td>
+      <td>[Gd, TA, Ex, nan, Fa]</td>
+      <td>[Unf, BLQ, nan, ALQ, Rec, LwQ, GLQ]</td>
+      <td>[GLQ, ALQ, Unf, Rec, BLQ, nan, LwQ]</td>
+      <td>[BrkFace, None, Stone, BrkCmn, nan]</td>
+      <td>[0, 1600, 102.0, 0]</td>
+      <td>[RL, RM, C (all), FV, RH, nan]</td>
+      <td>[AllPub, NoSeWa, nan]</td>
+      <td>[0, 3, 0.0, 0]</td>
+      <td>[0, 2, 0.0, 0]</td>
+      <td>[Typ, Min1, Maj1, Min2, Mod, Maj2, Sev, nan]</td>
+      <td>[VinylSd, MetalSd, Wd Sdng, HdBoard, BrkFace, WdShing, CemntBd, Plywood, AsbShng, Stucco, BrkComm, AsphShn, Stone, ImStucc, CBlock, nan]</td>
+      <td>[VinylSd, MetalSd, Wd Shng, HdBoard, Plywood, Wd Sdng, CmentBd, BrkFace, Stucco, AsbShng, Brk Cmn, ImStucc, AsphShn, Stone, Other, CBlock, nan]</td>
+      <td>[0, 5644, 441.0, 368]</td>
+      <td>[0, 1526, 50.0, 0]</td>
+      <td>[0, 2336, 561.0, 467]</td>
+      <td>[0, 6110, 1052.0, 990]</td>
+      <td>[SBrkr, FuseF, FuseA, FuseP, Mix, nan]</td>
+      <td>[Gd, TA, Ex, Fa, nan]</td>
+      <td>[0, 5, 2.0, 2]</td>
+      <td>[0, 1488, 473.0, 480]</td>
+      <td>[WD, New, COD, ConLD, ConLI, CWD, ConLw, Con, Oth, nan]</td>
+      <td>[1, 2919, 1460.0, 1460]</td>
+      <td>[20, 190, 57.0, 50]</td>
+      <td>[1300, 215245, 10168.0, 9453]</td>
+      <td>[Pave, Grvl]</td>
+      <td>[Reg, IR1, IR2, IR3]</td>
+      <td>[Lvl, Bnk, Low, HLS]</td>
+      <td>[Inside, FR2, Corner, CulDSac, FR3]</td>
+      <td>[Gtl, Mod, Sev]</td>
+      <td>[CollgCr, Veenker, Crawfor, NoRidge, Mitchel, Somerst, NWAmes, OldTown, BrkSide, Sawyer, NridgHt, NAmes, SawyerW, IDOTRR, MeadowV, Edwards, Timber, Gilbert, StoneBr, ClearCr, NPkVill, Blmngtn, BrDale, SWISU, Blueste]</td>
+      <td>[Norm, Feedr, PosN, Artery, RRAe, RRNn, RRAn, PosA, RRNe]</td>
+      <td>[Norm, Artery, RRNn, Feedr, PosN, PosA, RRAn, RRAe]</td>
+      <td>[1Fam, 2fmCon, Duplex, TwnhsE, Twnhs]</td>
+      <td>[2Story, 1Story, 1.5Fin, 1.5Unf, SFoyer, SLvl, 2.5Unf, 2.5Fin]</td>
+      <td>[1, 10, 6.0, 6]</td>
+      <td>[1, 9, 6.0, 5]</td>
+      <td>[1872, 2010, 1971.0, 1973]</td>
+      <td>[1950, 2010, 1984.0, 1993]</td>
+      <td>[Gable, Hip, Gambrel, Mansard, Flat, Shed]</td>
+      <td>[CompShg, WdShngl, Metal, WdShake, Membran, Tar&amp;Grv, Roll, ClyTile]</td>
+      <td>[Gd, TA, Ex, Fa]</td>
+      <td>[TA, Gd, Fa, Po, Ex]</td>
+      <td>[PConc, CBlock, BrkTil, Wood, Slab, Stone]</td>
+      <td>[GasA, GasW, Grav, Wall, OthW, Floor]</td>
+      <td>[Ex, Gd, TA, Fa, Po]</td>
+      <td>[Y, N]</td>
+      <td>[334, 5095, 1160.0, 1082]</td>
+      <td>[0, 2065, 336.0, 0]</td>
+      <td>[0, 1064, 5.0, 0]</td>
+      <td>[334, 5642, 1501.0, 1444]</td>
+      <td>[0, 4, 2.0, 2]</td>
+      <td>[0, 2, 0.0, 0]</td>
+      <td>[0, 8, 3.0, 3]</td>
+      <td>[0, 3, 1.0, 1]</td>
+      <td>[2, 15, 6.0, 6]</td>
+      <td>[0, 4, 1.0, 1]</td>
+      <td>[Y, N, P]</td>
+      <td>[0, 1424, 94.0, 0]</td>
+      <td>[0, 742, 47.0, 26]</td>
+      <td>[0, 1012, 23.0, 0]</td>
+      <td>[0, 508, 3.0, 0]</td>
+      <td>[0, 576, 16.0, 0]</td>
+      <td>[0, 800, 2.0, 0]</td>
+      <td>[0, 17000, 51.0, 0]</td>
+      <td>[1, 12, 6.0, 6]</td>
+      <td>[2006, 2010, 2008.0, 2008]</td>
+      <td>[Normal, Abnorml, Partial, AdjLand, Alloca, Family]</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,14 @@
+# name of your site (displayed in the header)
+name: aimee johnston, data bumpkin
+
+# Short bio or description (displayed in the header)
+description: interested in generated art, data / statistics, and sugary desserts
+
+# specify the markdown language used for editing
+markdown: kramdown
+
+# format for blog post URLs (instead of separated by hyphens)
+permalink: /blog/:year/:month/:day/:title
+
+plugins:
+  - jekyll-avatar
