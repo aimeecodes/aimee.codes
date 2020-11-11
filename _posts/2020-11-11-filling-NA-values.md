@@ -11,7 +11,7 @@ tags: [python, pandas, data exploration, data cleaning, iowa housing, optimizati
 
 Now, as I've been working with this dataset, I've run into an interesting problem that I wanted to dedicate a blog post to: filling an NA value with the mode of a series based on a single feature's row value (yikes!). To illustrate this, let's get a quick background to the problem: 
 
-Our dataset has some missing values, and I want to create a "rule" to fill in the NAs. The feature I'm currently concerned with is '<code>MSZoning</code>', which only 4 samples from our test_data set are missing.
+Our dataset has some missing values, and I want to create a "rule" to fill in the NAs. The feature I'm currently concerned with is <code>MSZoning</code>, which only 4 samples from our test_data set are missing.
 
 From the official dataset description file, we get some clues about what <code>MSZoning</code> represents: 
 
