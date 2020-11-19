@@ -5,7 +5,7 @@ date: 2020-11-11
 tags: [python, pandas, data exploration, data cleaning, iowa housing, optimization]
 ---
 
-好久不见了！ Long time, no see! In my last post, I gave a long update of tasks I took on after moving my little family to a new apartment in a new city. Now that we've settled into the new place and my language classes have become a familiar process, I've gotten back into the data science swing and returned to the Iowa housing data set. 
+<zw>好久不见了！</zw> Long time, no see! In my last post, I gave a long update of tasks I took on after moving my little family to a new apartment in a new city. Now that we've settled into the new place and my language classes have become a familiar process, I've gotten back into the data science swing and returned to the Iowa housing data set. 
 
 [If you want to see my work so far on this dataset, click the tags above and you can see all related posts.]
 
