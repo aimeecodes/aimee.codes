@@ -1,3 +1,30 @@
+@import 'mariana.css';
+
+@font-face {
+  font-family: "Open Sans";
+  src: url(../assets/fonts/OpenSans-Regular.woff2);
+}
+
+@font-face {
+  font-family: "Fira Code";
+  src: url(../assets/fonts/FiraCode-Regular.woff2);
+}
+
+@font-face {
+  font-family: "Iosevka";
+  src: url(../assets/fonts/Iosevka-Regular.woff2);
+}
+
+@font-face {
+  font-family: "Tajawal";
+  src: url(../assets/fonts/Tajawal-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url(../assets/fonts/NotoSansSC-Regular.otf);
+}
+
 /* The sidebar menu */
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
@@ -14,7 +41,7 @@
 /* The navigation menu links */
 .sidenav a {
   padding: 6px 8px 6px 16px;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: 'Tajawal', sans-serif;
   text-decoration: none;
   font-size: 20px;
   color: ##2E3440;
@@ -33,7 +60,7 @@
 .main {
   margin-left: 170px; /* Width of sidebar + 10px */
   padding: 10px 10px;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family:'Tajawal', sans-serif;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
@@ -71,7 +98,7 @@ body {
 }*/
 
 nav ul, footer ul {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Tajawal', sans-serif;
     list-style: none;
     font-weight: bold;
 }
@@ -83,69 +110,75 @@ nav ul li {
 a {
     text-decoration: none;
     color: #999;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Tajawal', sans-serif;
 }
 
 a:hover {
     text-decoration: underline;
     color: #;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Tajawal', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  margin-top:10px;
+  margin-bottom: 5px;
 }
 
 h1 {
     font-size: 3em;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Tajawal', sans-serif;
     color: #2E3440;
 }
 
 h2 {
     font-size: 2.5em;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Tajawal', sans-serif;
     color: #2E3440;
 }
 
 h3 {
     font-size: 2em;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Tajawal', sans-serif;
     color: #2E3440;
 }
 
 h4 {
     font-size: 1.5em;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Tajawal', sans-serif;
     color: #2E3440;
 }
 
 h5 {
     font-size: 1em;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Tajawal', sans-serif;
     color: #2E3440;
 }
 
 p {
-    font-family:Arial, Helvetica, sans-serif;
-    font-size: 12;
-    line-height: 1.4em;
+    font-family:'Tajawal', sans-serif;
+    font-size: 1em;
+    margin-top:5px;
+    margin-bottom: 5px;
     color: #333;
 }
 
 ul {
-    font-family:Arial, Helvetica, sans-serif;
-    font-size: 12;
+    font-family:'Tajawal', sans-serif;
+    font-size: 1em;
     line-height: 1.4em;
     color: #333;
     list-style-type: "→ ";
 }
 
 ol li {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Tajawal', sans-serif;
     font-size: 1em;
     line-height: 1.4em;
     color: #333;
 }
 
 ul li {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Tajawal', sans-serif;
     font-size: 1em;
     line-height: 1.4em;
     color: #333;
@@ -157,25 +190,29 @@ footer {
 }
 
 ul.posts { 
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Tajawal', sans-serif;
     margin: 20px auto 40px; 
     font-size: 1em;
 }
 
 ul.posts li {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Tajawal', sans-serif;
     list-style: none;
 }
 
 #tags a:link, #tags a:visited {
-  font-family:Arial, Helvetica, sans-serif;
+  font-family:'Tajawal', sans-serif;
   background-color: #f1f1f1;
   color: #2E3440;
   padding: 1px 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  border-radius: 6px;
+  border-radius: 5px;
+}
+
+#tags a:hover {
+  background: #F9AE58;
 }
 
 .table-wrapper {
@@ -184,5 +221,23 @@ ul.posts li {
 }
 
 div.tags {
-  font-family:Arial, Helvetica, sans-serif;
+  font-family:'Tajawal', sans-serif;
+}
+
+pre {
+  font-family: 'Tajawal', monospace;
+  background: #343D46;
+  color: #D8DEE9;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+p code {
+  background: #D8DEE9;
+  font-family: monospace;
+  font-size: 1.2em;
+}
+
+p zw {
+  font-family: "Noto Sans"
 }

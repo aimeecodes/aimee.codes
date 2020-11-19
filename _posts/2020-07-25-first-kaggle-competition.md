@@ -17,10 +17,10 @@ So far, my latest lessons with python include:
 * learning-naming-conventions-the-hard-way/dashes_for_directories_and_underscores_for_files.txt
 * referencing absolute vs. local file paths
 * using a preloaded script to save time on typing
-~~~ python
+{% highlight python %}
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-~~~
+{% endhighlight %}
 
 Now that I've got my environment set up, expect another post dedicated to my exploration of this dataset - including plots!
