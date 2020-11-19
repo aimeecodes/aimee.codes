@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "iowa housing exploration"
+title: "Iowa Housing: Exploration"
 date: 2020-08-05
 tags: [python, data visualization, data exploration, iowa housing]
 ---

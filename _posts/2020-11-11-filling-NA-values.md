@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "filling categorical NAs"
+title: "Filling Categorical NAs"
 date: 2020-11-11
 tags: [python, pandas, data exploration, data cleaning, iowa housing, optimization]
 ---

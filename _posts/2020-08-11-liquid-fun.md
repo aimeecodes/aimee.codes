@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "jekyll + liquid fun"
+title: "Jekyll Updates + Liquid Fun"
 date: 2020-08-11
 tags: [ruby, jekyll, projects]
 

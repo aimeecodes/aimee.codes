@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "aimee, data bumpkin, launches website"
+title: "Data Bumpkin Launches Website"
 date: 2020-03-07
 tags: [machine learning, projects]
 ---

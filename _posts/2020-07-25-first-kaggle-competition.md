@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "first kaggle competition"
+title: "First Kaggle Competition"
 date: 2020-07-25
 tags: [machine learning, projects, python, iowa housing]
 
