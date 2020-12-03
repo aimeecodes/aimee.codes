@@ -24,14 +24,14 @@ Here's a list of the most recent updates to the site!
   </thead>
   <tbody>
     <tr>
-      <td data-title='Feature' class='text'>PoolQC</td>
+      <th data-title='Feature' class='text'>PoolQC</th>
       <td data-title='NA Count' class='numeric'>2909</td>
       <td data-title='% Missing' class='numeric'>0.99657</td>
       <td data-title='Data Type' class='text'>object</td>
       <td data-title='Overview' class='text'>[nan, Ex, Fa, Gd]</td>
     </tr>
     <tr>
-      <td data-title='Feature' class='text'>MiscFeature</td>
+      <th data-title='Feature' class='text'>MiscFeature</th>
       <td data-title='NA Count' class='numeric'>2814</td>
       <td data-title='% Missing' class='numeric'>0.96403</td>
       <td data-title='Data Type' class='text'>object</td>

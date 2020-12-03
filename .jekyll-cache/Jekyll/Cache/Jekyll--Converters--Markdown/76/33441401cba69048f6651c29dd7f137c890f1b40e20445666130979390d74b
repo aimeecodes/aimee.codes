@@ -1,0 +1,115 @@
+I"�'<p>Good morning / afternoon / evening / time-specfic greeting! Let’s recap what’s been happening with this Iowa Housing dataset:</p>
+
+<ul>
+  <li>In <a href="/blog/2020/08/05/iowa-housing-exploration">this</a> post, I did a visual exploration of the dataset to understand a bit more about the data I’m working with - check out that post for some cool graphs using the Seaborn library!</li>
+</ul>
+
+<hr />
+
+<h3 id="reading-materials-for-random-forest-algorithm">Reading Materials for Random Forest Algorithm</h3>
+
+<p>For this data set, I’m going to start by using a Random Forest (RF) Regressor to predict the SalePrice for a given home. For a great and simple explanation of a RF model, see <a href="https://medium.com/@williamkoehrsen/random-forest-simple-explanation-377895a60d2d">William Koehren</a>’s article <em>Random Forest Simple Explanation</em>. As he explains, a RF Regressor model is trained on a subset of the data (training data) to predict a continuous variable (RF Classifier will predict a categorical variable) which is made up of a very large number of randomly generated Decision Trees, using random feature selection. After the trees are generated, the model uses another subset of the data (test data) to check it’s predictions, and when called on to predict, will push to us the average of all the individual Decision Tree estimates, <a href="https://towardsdatascience.com/understanding-random-forest-58381e0602d2">whose prediction by committee is more accurate than that of any individual tree. </a></p>
+
+<p>The easiest way to think about a Decision Tree is like navigating a logical flow chart, where you’ll end up at a specific outcome (be it a continuous variable, like SalePrice, or a categorical variable, like yes (1) / no (0) for a fraudulent transaction) based on decisions made using the input features.</p>
+
+<p>Now, the benefit of using a RF model over a single Decision Tree is best explained in <a href="https://towardsdatascience.com/understanding-random-forest-58381e0602d2">Tony Yiu</a>’s article <em>Understanding Random Forest</em> where he talks about the RF’s methods of Bagging (Bootstrap Aggregating) and Feature Randomness, and why these two methods ensure our models will be sufficiently diverse from one another (and why this is desired in the first place!).</p>
+
+<hr />
+
+<h3 id="back-to-the-data">Back to the data!</h3>
+
+<p>Now that we are all caught up on the intricacies of the RF model, let’s get back to the data!</p>
+
+<p>Previously, in the Kaggle competition introduction, they give you a baseline model’s performance: using the features <code>['LotArea', 'YearBuilt', '1stFlrSF', '2ndFlrSF', 'FullBath', 'BedroomAbvGr', 'TotRmsAbvGrd']</code>, you get a Mean Absolute Error (MAE) of $21,857 and 85.86% accuracy. This section’s goal is to improve this using feature selection.</p>
+
+<p>Our goal in the next step is to determine which features are considered “good” for our model. My current understanding is that, even with the <code>feature_importances_</code> function, which returns a measure of each feature’s “importance” in calculating the output, this is biased towards categorical variables with large variances / large cardinality. After reading <a href="https://blog.datadive.net">Ando Saabas</a>’s blog posts on Random Forest model training and interpretation, I’ve come up with a measured way of using the <code>permutation_importance</code> to measure, if our feature is randomly shuffled in the data set, what is the effect on the overall accuracy of the model? If permuting a single feature greatly decreases the accuracy, we know this feature is probably quite “important” for the model. Meanwhile, if permuting a single feature doesn’t greatly decrease the accuracy, then our model probably doesn’t rely on that variable too much.</p>
+
+<p>I added a quick line to my scripts <code>train_data.dropna(axis=1)</code> to drop any features (axis=0 » rows [instances], axis=1 » columns [features]) that contained NA values. This means we will lose 19 features from the dataset: <code>LotFrontage, Alley, MsnVnrType, MsnVnrArea, BsmtQual, BsmtCond, BsmtExposure, BsmtFinType1, BsmtFinType2, Electrical, FireplaceQu, GarageType, GarageYrBlt, GarageFinish, GarageQual, GarageCond, PoolQC, Fence, MiscFeature </code>. Since I have no ways of filling in the missing data yet (for another post), I’m going to remove those features from my dataset and only train on features that every house has a value for.</p>
+
+<p>Using <a href="">this</a> code, I:</p>
+<ul>
+  <li>Removed the features with NA values (remaining <code>features = ['MSSubClass', 'MSZoning', 'LotArea', 'Street', 'LotShape',
+     'LandContour', 'Utilities', 'LotConfig', 'LandSlope', 'Neighborhood',
+     'Condition1', 'Condition2', 'BldgType', 'HouseStyle', 'OverallQual',
+     'OverallCond', 'YearBuilt', 'YearRemodAdd', 'RoofStyle', 'RoofMatl',
+     'Exterior1st', 'Exterior2nd', 'ExterQual', 'ExterCond', 'Foundation',
+     'BsmtFinSF1', 'BsmtFinSF2', 'BsmtUnfSF', 'TotalBsmtSF', 'Heating',
+     'HeatingQC', 'CentralAir', '1stFlrSF', '2ndFlrSF', 'LowQualFinSF',
+     'GrLivArea', 'BsmtFullBath', 'BsmtHalfBath', 'FullBath', 'HalfBath',
+     'BedroomAbvGr', 'KitchenAbvGr', 'KitchenQual', 'TotRmsAbvGrd',
+     'Functional', 'Fireplaces', 'GarageCars', 'GarageArea', 'PavedDrive',
+     'WoodDeckSF', 'OpenPorchSF', 'EnclosedPorch', '3SsnPorch',
+     'ScreenPorch', 'PoolArea', 'MiscVal', 'MoSold', 'YrSold', 'SaleType',
+     'SaleCondition']</code>)</li>
+  <li>One-hot encoded my categorical features (more information on one hot encoding <a href="">here</a>)</li>
+  <li>Created many random train / test splits of the data, to be passed into the permutation function</li>
+  <li>Calcuated the average overall accuracy of the model when trained on each train / test split</li>
+  <li>Kept track of the decrease in accuracy from the initial model to the permutated model via <code>permutation_importance</code></li>
+</ul>
+
+<hr />
+
+<h3 id="initial-results">Initial Results</h3>
+
+<p>After running my script, I ended up with this list of features and their “importance” to the model, from highest to lowest:</p>
+
+<p><code>Average Model Accuracy:  85.342% <br />
+Features sorted by their score: <br />
+[(0.4395, 'OverallQual'), <br />
+(0.1114, 'GrLivArea'), <br />
+(0.0227, 'TotalBsmtSF'), <br />
+(0.0159, 'BsmtFinSF1'), <br />
+(0.0146, 'GarageCars'), <br />
+(0.012, '2ndFlrSF'),  <br />
+(0.0117, '1stFlrSF'), <br />
+(0.0101, 'LotArea'), <br />
+(0.0075, 'YearBuilt'), <br />
+(0.0058, 'GarageArea'), <br />
+(0.0042, 'YearRemodAdd'), <br />
+(0.003, 'OverallCond'), <br />
+(0.0017, 'TotRmsAbvGrd'), <br />
+(0.0016, 'BsmtUnfSF'), <br />
+(0.0015, 'BedroomAbvGr'), ... ]
+</code></p>
+
+<p>The remaining features are all ranked &lt;0.0015 (including some negative ones, like <code>MoSold</code>, and <code>PoolArea</code>! We can probably infer why with some domain knowledge). An interesting note is that the top 15 features are all considered ‘numerical’ variables, which means we don’t have any of our hot-encoded variables making big contributions to the model’s performance.</p>
+
+<p>Normally, when we sum the importances, we should get a value of 1. However, in this case, because we’re calculating the mean decrease in accuracy, our estimated permuted importances will be a little lower than a single estimation. Thus, when we sum across our entire calculated feature scores, they only sum to 0.68269. When we sum the top 15 features, we get 0.6732, or 0.98608 of our total sum of importances. Not too bad!</p>
+
+<p>Based on the features above, we can expect that when we do not use <code>OverallQual</code> as a training feature, it will decrease our model’s performance by an average of 43.95%. Now, as Ando Saaba explains, this doesn’t mean our model will see a decrease of 43.95% in accuracy every time we don’t use <code>OverallQual</code> as a feature, since there are many other correlated features in the data set that will compensate for the lack of <code>OverallQual</code>. Let’s test it out, by first training the model using our top 15 features including <code>OverallQual</code>, then training it with only the other 14 features:</p>
+
+<p><code>Model Accuracy with OverallQual: 90.27 %<br />
+Model Accuracy without OverallQual: 89.8 %</code></p>
+
+<p>Certainly not a 43.95% drop in accuracy, but since the model doesn’t have the feature <code>OverallQual</code> to train on anymore, the algorithm isn’t as efficient as it could be!</p>
+
+<p>Interestingly, if we ONLY use <code>OverallQual</code> to predict the <code>SalePrice</code>, the model’s accuracy only drops to 82.36 %. So <code>OverallQual</code> isn’t a bad place to start, if we had to build our model up from scratch.</p>
+
+<hr />
+
+<h3 id="training-using-our-top-15-features">Training using our Top 15 Features</h3>
+
+<p>Now, let’s see the feature ranking for our model trained on the Top 15 features.</p>
+
+<p>Setting the random_state to 0 for consistency, we see the following:</p>
+
+<p><code>Accuracy:  90.27 %. <br />
+Validation MAE for RandomForestRegressor: $17,214 <br />
+Feature: OverallQual          Importance: 0.574 <br />
+Feature: GrLivArea            Importance: 0.133 <br />
+Feature: TotalBsmtSF          Importance: 0.048 <br />
+Feature: BsmtFinSF1           Importance: 0.04 <br />
+Feature: GarageCars           Importance: 0.032 <br />
+Feature: 1stFlrSF             Importance: 0.03 <br />
+Feature: LotArea              Importance: 0.026 <br />
+Feature: GarageArea           Importance: 0.026 <br />
+Feature: YearBuilt            Importance: 0.024 <br />
+Feature: 2ndFlrSF             Importance: 0.02 <br />
+Feature: YearRemodAdd         Importance: 0.016 <br />
+Feature: BsmtUnfSF            Importance: 0.011 <br />
+Feature: TotRmsAbvGrd         Importance: 0.01 <br />
+Feature: OverallCond          Importance: 0.008 <br />
+Feature: BedroomAbvGr         Importance: 0.004</code></p>
+
+<p>Let’s recap - from our initial metrics of 85.86% accuracy and a MAE of $21,857, we’ve doubled our used features (from 7 to 15), increased the accuracy by 4.41%, and reduced the MAE by 21%!</p>
+:ET
