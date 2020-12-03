@@ -60,6 +60,6 @@ ___
 
 ___
 
-My next post in the Iowa housing dataset involes both data cleaning and feature engineering. It's been a long time coming, and I'm excited to share what I've been up to! 
+Now that I'm satisfied witht the site changes (...for now...) I'm going to replace my web dev hat with my data analyst one. My next post in the Iowa housing dataset involes both data cleaning and feature engineering. It's been a long time coming, and I'm excited to share what I've been up to! 
 
 Until next time, 祝好！
