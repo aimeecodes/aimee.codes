@@ -1,0 +1,225 @@
+I"�c<zw>好久不见了！</zw>
+<p>Long time, no see! In my last post, I gave a long update of tasks I took on after moving my little family to a new apartment in a new city. Now that we have settled into the new place and my language classes have become a familiar process, I've gotten back into the data science swing and returned to the Iowa housing data set.</p>
+
+<p>[If you want to see my work so far on this dataset, click the tags above and you can see all related posts.]</p>
+
+<p>Now, as I have been working with this dataset, I've run into an interesting problem that I wanted to dedicate a blog post to: filling an NA value with the mode of a series based on a single feature's row value (yikes!). To illustrate this, let's get a quick background to the problem:</p>
+
+<p>Our dataset has some missing values, and I want to create a "rule" to fill in the NAs. The feature I am currently concerned with is <code>MSZoning</code>, which only 4 samples from our <code>test_data</code> set are missing.</p>
+
+<p>From the official dataset description file, we get some clues about what <code>MSZoning</code> represents:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">MSZoning</span><span class="p">:</span> <span class="n">Identifies</span> <span class="n">the</span> <span class="n">general</span> <span class="n">zoning</span> <span class="n">classification</span> <span class="n">of</span> <span class="n">the</span> <span class="n">sale</span><span class="p">.</span>
+
+  <span class="n">A</span>	<span class="n">Agriculture</span>
+  <span class="n">C</span>	<span class="n">Commercial</span>
+  <span class="n">FV</span>	<span class="n">Floating</span> <span class="n">Village</span> <span class="n">Residential</span>
+  <span class="n">I</span>	<span class="n">Industrial</span>
+  <span class="n">RH</span>	<span class="n">Residential</span> <span class="n">High</span> <span class="n">Density</span>
+  <span class="n">RL</span>	<span class="n">Residential</span> <span class="n">Low</span> <span class="n">Density</span>
+  <span class="n">RP</span>	<span class="n">Residential</span> <span class="n">Low</span> <span class="n">Density</span> <span class="n">Park</span> 
+  <span class="n">RM</span>	<span class="n">Residential</span> <span class="n">Medium</span> <span class="n">Density</span></code></pre></figure>
+
+<p>Looks like it is general idea of what the property is used for. Now we can go ahead and pull some more information about our properties with missing values out of the dataframe:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">test_data</span><span class="p">[</span><span class="n">test_data</span><span class="p">[</span><span class="s">'MSZoning'</span><span class="p">].</span><span class="n">isna</span><span class="p">()][[</span><span class="s">'Id'</span><span class="p">,</span> <span class="s">'MSZoning'</span><span class="p">,</span> <span class="s">'Neighborhood'</span><span class="p">,</span> <span class="s">'MSSubClass'</span><span class="p">]]</span> 
+
+  <span class="n">Id</span> <span class="n">MSZoning</span> <span class="n">Neighborhood</span>  <span class="n">MSSubClass</span>
+<span class="mi">1916</span>      <span class="n">NaN</span>       <span class="n">IDOTRR</span>          <span class="mi">30</span>
+<span class="mi">2217</span>      <span class="n">NaN</span>       <span class="n">IDOTRR</span>          <span class="mi">20</span>
+<span class="mi">2251</span>      <span class="n">NaN</span>       <span class="n">IDOTRR</span>          <span class="mi">70</span>
+<span class="mi">2905</span>      <span class="n">NaN</span>      <span class="n">Mitchel</span>          <span class="mi">20</span></code></pre></figure>
+
+<p>I have some options: first, I could simply fill in the NAs by hand (there are only 4 of them). This way, I have complete control over the values, and I can use whatever logic I want in order to fill them.</p>
+
+<p>Secondly, I could write a rule for the pandas <code>fillna</code> function. This is by far the more interesting approach, since it allows for scalability and application of <code>groupby</code>, <code>agg</code>, <code>apply</code>, and <code>transform</code> functions. My difficulty here (and what this post will focus on) is how to pass my desired logic into the <code>fillna</code> function.</p>
+
+<p>To begin, it is worthwhile looking at the by-hand method to understand what we’re trying to accomplish here.</p>
+
+<hr />
+
+<p><strong>Option 1: By-Hand</strong></p>
+
+<p>The first thing I want to draw attention to is the most common <code>MSZoning</code> variable. We can check the mode of both datasets, and get a quick summary:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">train_data</span><span class="p">[</span><span class="s">'MSZoning'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">RL</span>         <span class="mi">1151</span>
+<span class="n">RM</span>          <span class="mi">218</span>
+<span class="n">FV</span>           <span class="mi">65</span>
+<span class="n">RH</span>           <span class="mi">16</span>
+<span class="n">C</span> <span class="p">(</span><span class="nb">all</span><span class="p">)</span>      <span class="mi">10</span>
+
+<span class="n">test_data</span><span class="p">[</span><span class="s">'MSZoning'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">RL</span>         <span class="mi">1114</span>
+<span class="n">RM</span>          <span class="mi">242</span>
+<span class="n">FV</span>           <span class="mi">74</span>
+<span class="n">C</span> <span class="p">(</span><span class="nb">all</span><span class="p">)</span>      <span class="mi">15</span>
+<span class="n">RH</span>           <span class="mi">10</span></code></pre></figure>
+
+<p>So, the two datasets definitely share a mode: <code>RL</code>. However, if we divide our dataset into neighborhoods and then count up each <code>MSZoning</code> value, we see a new trend emerge:</p>
+
+<section id="photos">
+  <img src="/assets/images/2020-11-11/ZoneCountPlot.svg" width="98%" />
+</section>
+<p>(Note that only 8 of 25 neighborhoods are included here for ease of viewing, you can see the full figure with all 25 neighborhoods <a href="/assets/zone-plot-full.html">here</a>)</p>
+
+<p>My biggest take-aways from this graphic:</p>
+
+<ol>
+  <li>Each neighborhood only has 1-3 unique <code>MSZoning</code> values.</li>
+  <li>Some neighborhoods do not share the overall mode of the dataset!</li>
+</ol>
+
+<p>For example, in the Somerset Neighborhood the mode is actually <code>FV</code> or Floating Village Residential, and in the IDOTRR (Iowa Department of Transport and Rail Road) Neighborhood the mode is <code>RM</code>, or Residential Medium Density. Since 3 of our 4 homes are in the IDOTRR Neighborhood, we should be careful about filling NAs with the mode of the overall dataset.</p>
+
+<p>The easiest thing is to hand-fill the NAs based on the <i>mode</i> of the subset of the Neighborhood. This is pretty simple, and the only snag we hit is dealing with indices (non-trivial!) if we merged our datasets, or adjusted their positions in anyway.</p>
+
+<p>Thus, for the 3 properties without <code>MSZoning</code> in IDOTRR, we will replace the NA with <code>RM</code>, and the property in Mitchel will be replaced with <code>RL</code>.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">test_data</span><span class="p">.</span><span class="n">at</span><span class="p">[</span><span class="mi">455</span><span class="p">,</span> <span class="s">'MSZoning'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'RM'</span>
+<span class="n">test_data</span><span class="p">.</span><span class="n">at</span><span class="p">[</span><span class="mi">756</span><span class="p">,</span> <span class="s">'MSZoning'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'RM'</span>
+<span class="n">test_data</span><span class="p">.</span><span class="n">at</span><span class="p">[</span><span class="mi">790</span><span class="p">,</span> <span class="s">'MSZoning'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'RM'</span>
+<span class="n">test_data</span><span class="p">.</span><span class="n">at</span><span class="p">[</span><span class="mi">1444</span><span class="p">,</span> <span class="s">'MSZoning'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'RL'</span></code></pre></figure>
+
+<p>Again, note here that I had to find the indices and access each value by hand. This is fine for a small number of fixes, but I need a way to automate this process so I can reuse the logical structure in a larger setting!</p>
+
+<hr />
+
+<p><strong>Option 2: Automation</strong></p>
+
+<p>My general idea here is to pass the same kind of hand-checked logic to the <code>fillna</code> function: if this sample has an NA for <code>MSZoning</code>, calculate the most common <code>MSZoning</code> value for all homes with the sample's Neighborhood value, and then assign the most common value.</p>
+
+<p>While researching how I could attempt this, I found <a href="https://stackoverflow.com/a/51117932">this</a> answer on stackoverflow; this gave me some great insight into using the pandas function <code>groupby</code>, and how I could adapt it to my problem. First, let's see what groupby does if I decide I want to group <code>train_data</code> by <em>Neighborhood</em>, and then see the <em>mean</em> SalePrice, followed by the <em>standard deviation</em> of our SalePrice feature:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># initialize the Series as a DataFrame column
+</span><span class="n">neigh_saleprice_sum</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">grouped</span><span class="p">[</span><span class="s">'SalePrice'</span><span class="p">].</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="c1"># add standard deviation as column to dataframe
+</span><span class="n">neigh_saleprice_sum</span><span class="p">[</span><span class="s">'StdDev'</span><span class="p">]</span> <span class="o">=</span> <span class="n">grouped</span><span class="p">[</span><span class="s">'SalePrice'</span><span class="p">].</span><span class="n">std</span><span class="p">()</span>
+
+<span class="c1"># round columns to 2 decimal places
+</span><span class="n">neigh_saleprice_sum</span><span class="p">[</span><span class="s">'MeanSalePrice'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">neigh_saleprice_sum</span><span class="p">[</span><span class="s">'MeanSalePrice'</span><span class="p">]],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">neigh_saleprice_sum</span><span class="p">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="n">neigh_saleprice_sum</span><span class="p">[</span><span class="s">'StdDev'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">neigh_saleprice_sum</span><span class="p">[</span><span class="s">'StdDev'</span><span class="p">]],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">neigh_saleprice_sum</span><span class="p">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="n">neigh_saleprice_sum</span>
+
+              <span class="n">MeanSalePrice</span>     <span class="n">StdDev</span>
+<span class="n">Neighborhood</span>                          
+<span class="n">Blmngtn</span>           <span class="mf">194870.88</span>   <span class="mf">30393.23</span>
+<span class="n">Blueste</span>           <span class="mf">137500.00</span>   <span class="mf">19091.88</span>
+<span class="n">BrDale</span>            <span class="mf">104493.75</span>   <span class="mf">14330.18</span>
+<span class="n">BrkSide</span>           <span class="mf">124834.05</span>   <span class="mf">40348.69</span>
+<span class="n">ClearCr</span>           <span class="mf">212565.43</span>   <span class="mf">50231.54</span>
+<span class="n">CollgCr</span>           <span class="mf">197965.77</span>   <span class="mf">51403.67</span>
+<span class="n">Crawfor</span>           <span class="mf">210624.73</span>   <span class="mf">68866.40</span>
+<span class="n">Edwards</span>           <span class="mf">128219.70</span>   <span class="mf">43208.62</span>
+<span class="n">Gilbert</span>           <span class="mf">192854.51</span>   <span class="mf">35986.78</span>
+<span class="n">IDOTRR</span>            <span class="mf">100123.78</span>   <span class="mf">33376.71</span>
+<span class="n">MeadowV</span>            <span class="mf">98576.47</span>   <span class="mf">23491.05</span>
+<span class="n">Mitchel</span>           <span class="mf">156270.12</span>   <span class="mf">36486.63</span>
+<span class="n">NAmes</span>             <span class="mf">145847.08</span>   <span class="mf">33075.35</span>
+<span class="n">NPkVill</span>           <span class="mf">142694.44</span>    <span class="mf">9377.31</span>
+<span class="n">NWAmes</span>            <span class="mf">189050.07</span>   <span class="mf">37172.22</span>
+<span class="n">NoRidge</span>           <span class="mf">335295.32</span>  <span class="mf">121412.66</span>
+<span class="n">NridgHt</span>           <span class="mf">316270.62</span>   <span class="mf">96392.54</span>
+<span class="n">OldTown</span>           <span class="mf">128225.30</span>   <span class="mf">52650.58</span>
+<span class="n">SWISU</span>             <span class="mf">142591.36</span>   <span class="mf">32622.92</span>
+<span class="n">Sawyer</span>            <span class="mf">136793.14</span>   <span class="mf">22345.13</span>
+<span class="n">SawyerW</span>           <span class="mf">186555.80</span>   <span class="mf">55652.00</span>
+<span class="n">Somerst</span>           <span class="mf">225379.84</span>   <span class="mf">56177.56</span>
+<span class="n">StoneBr</span>           <span class="mf">310499.00</span>  <span class="mf">112969.68</span>
+<span class="n">Timber</span>            <span class="mf">242247.45</span>   <span class="mf">64845.65</span>
+<span class="n">Veenker</span>           <span class="mf">238772.73</span>   <span class="mf">72369.32</span></code></pre></figure>
+
+<p>Awesome - we created a customized summary of SalePrice for each Neighborhood. We could do this kind of summary for any numerical feature in our dataset, grouped specifically by a selected categorical feature.</p>
+
+<p>Now, if we wanted to, we could initialize a SalePrice variable in our test_data set, assign the mean SalePrice of the neighborhood to each test_data sample, and call it a day! Machine Learning™ Completed. I don’t think we’d get fantastic accuracy though, considering the second column above, so we’d better keep searching for a better method.</p>
+
+<p>One issue is that there is not a <code>.mode()</code> we can use at the end of our statement - this groupby function only works with numerical summaries, like mean, variance, or median. So we need to find a work-around, since our data is categorical and we’re assigning it based on the Neighborhood's mode.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">grouped</span><span class="p">[</span><span class="s">'SalePrice'</span><span class="p">].</span><span class="n">mode</span><span class="p">()</span>
+
+<span class="nb">AttributeError</span><span class="p">:</span> <span class="s">'SeriesGroupBy'</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s">'mode'</span></code></pre></figure>
+
+<p>Thankfully, I found <a href="https://stackoverflow.com/a/59127538">another</a> potential answer. This one suggested bringing <code>transform</code>, <code>agg</code>, and <code>apply</code> into the mix. A great primer for understanding how these function works can be found <a href="https://pbpython.com/pandas_transform.html">here</a>.</p>
+
+<p>I found that when I used <code>transform</code>, it had the same limitations as earlier - I couldn’t use it on categorical variables immediately. However, I found when I used <code>agg</code>, I was able to get some great results! Below, we are going to find the most common value for <code>MSZoning</code> sorted by <code>Neighborhood</code>.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">merge_data</span><span class="p">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Neighborhood'</span><span class="p">)[</span><span class="s">'MSZoning'</span><span class="p">].</span><span class="n">agg</span><span class="p">(</span><span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">.</span><span class="n">mode</span><span class="p">)</span>
+<span class="n">Neighborhood</span>
+<span class="n">Blmngtn</span>    <span class="n">RL</span>
+<span class="n">Blueste</span>    <span class="n">RM</span>
+<span class="n">BrDale</span>     <span class="n">RM</span>
+<span class="n">BrkSide</span>    <span class="n">RM</span>
+<span class="n">ClearCr</span>    <span class="n">RL</span>
+<span class="n">CollgCr</span>    <span class="n">RL</span>
+<span class="n">Crawfor</span>    <span class="n">RL</span>
+<span class="n">Edwards</span>    <span class="n">RL</span>
+<span class="n">Gilbert</span>    <span class="n">RL</span>
+<span class="n">IDOTRR</span>     <span class="n">RM</span>
+<span class="n">MeadowV</span>    <span class="n">RM</span>
+<span class="n">Mitchel</span>    <span class="n">RL</span>
+<span class="n">NAmes</span>      <span class="n">RL</span>
+<span class="n">NPkVill</span>    <span class="n">RL</span>
+<span class="n">NWAmes</span>     <span class="n">RL</span>
+<span class="n">NoRidge</span>    <span class="n">RL</span>
+<span class="n">NridgHt</span>    <span class="n">RL</span>
+<span class="n">OldTown</span>    <span class="n">RM</span>
+<span class="n">SWISU</span>      <span class="n">RL</span>
+<span class="n">Sawyer</span>     <span class="n">RL</span>
+<span class="n">SawyerW</span>    <span class="n">RL</span>
+<span class="n">Somerst</span>    <span class="n">FV</span>
+<span class="n">StoneBr</span>    <span class="n">RL</span>
+<span class="n">Timber</span>     <span class="n">RL</span>
+<span class="n">Veenker</span>    <span class="n">RL</span></code></pre></figure>
+
+<p>This is a great sign - it is returning the most common value of <code>MSZoning</code> for each <code>Neighborhood</code>! As we saw earlier, the most common <code>MSZoning</code> value for the <code>Neighborhood</code> of <code>'Somerset'</code> is indeed <code>FV</code>. Now that we have something that works, I want to walk through my logic before we jump into writing the code that works.</p>
+
+<p>My first thought: I could simply calculate this variable and assign it as a column for every single sample in our test data, so it is a fast and easy fix to simply assign a missing sample's calculated mode as it's <code>MSZoning</code> value. However, let's remember: there are 1459 samples in my <code>test_data</code> set. I am not going to waste time creating an additional, useless variable for 1455 samples. This is not great for scalability, and a huge waste of my computer's limited processing power.</p>
+
+<p>Instead, I'm going to use the pandas <code>fillna</code> function, which should have an easier time detecting NAs in our selected column, and doing minor computations to fill.</p>
+
+<p>The function <code>fillna</code> can take a function, which will execute when an NA passes in. Let's take a look at the code below:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">merge_data</span><span class="p">):</span>
+	<span class="n">ds</span><span class="p">[</span><span class="s">'MSZoning'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s">'MSZoning'</span><span class="p">].</span><span class="n">fillna</span><span class="p">(</span><span class="n">ds</span><span class="p">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'Neighborhood'</span><span class="p">)[</span><span class="s">'MSZoning'</span><span class="p">].</span><span class="n">transform</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">.</span><span class="n">mode</span><span class="p">().</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span></code></pre></figure>
+
+<p>Here, you'll notice I have three datasets: these are my training samples which I'll train my model on; testing samples which I'll use to test the accuracy of my model; and a merged dataset of my test and training data, minus our target variable (<code>SalePrice</code>), which I'm using to fill in and summarize the data.</p>
+
+<p>As well, you'll notice I passed in a lambda function: here, I'm asking it to assign the mode of the <code>MSZoning</code> feature, grouped by <code>Neighborhood</code>. After this code runs, we can check to see if any NAs remain in our data sets, and check the assigned variables at our indices:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># check to make sure no more NAs exist for this variable
+</span><span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">merge_data</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">ds</span><span class="p">[</span><span class="s">'MSZoning'</span><span class="p">].</span><span class="n">isna</span><span class="p">()])</span>
+
+<span class="n">Empty</span> <span class="n">DataFrame</span>
+
+<span class="n">Empty</span> <span class="n">DataFrame</span>
+
+<span class="n">Empty</span> <span class="n">DataFrame</span></code></pre></figure>
+
+<p>So far, so good - let's see what the values are at our previously NA locations:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">test_data</span><span class="p">.</span><span class="n">at</span><span class="p">[</span><span class="mi">455</span><span class="p">,</span> <span class="s">'MSZoning'</span><span class="p">]</span>
+<span class="s">'RM'</span>
+
+<span class="n">test_data</span><span class="p">.</span><span class="n">at</span><span class="p">[</span><span class="mi">756</span><span class="p">,</span> <span class="s">'MSZoning'</span><span class="p">]</span>
+<span class="s">'RM'</span>
+
+<span class="n">test_data</span><span class="p">.</span><span class="n">at</span><span class="p">[</span><span class="mi">790</span><span class="p">,</span> <span class="s">'MSZoning'</span><span class="p">]</span>
+<span class="s">'RM'</span>
+
+<span class="n">test_data</span><span class="p">.</span><span class="n">at</span><span class="p">[</span><span class="mi">1444</span><span class="p">,</span> <span class="s">'MSZoning'</span><span class="p">]</span>
+<span class="s">'RL'</span></code></pre></figure>
+
+<p>Great, it works exactly like it ought to! You can find my full cleaning script posted on my <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/iowaprerun.py">github</a>.</p>
+
+<hr />
+
+<p><strong>Final Results</strong></p>
+
+<p>Using <code>groupby, transform</code> and a lambda function, I was able to fill in categorical NAs based on the mode of another categorical variable, by grouping the dataset by <em>another</em> categorical variable. This way, I can write two short lines of code into my prerun cleaning script, and get to working with more accurate data. Another variable I'll use this kind of prediction on is <code>Exterior1st / Exterior2nd</code>, since these features also seem to correlate with <code>Neighborhood</code>.</p>
+
+<p>That's all for today's post, I'll have another large update to post when I've finished cleaning my dataset and prepared it for algorithm testing. Until next time, stay safe and wear a mask!</p>
+:ET

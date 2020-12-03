@@ -1,23 +1,23 @@
 ---
-layout: default
+layout: topnav
 ---
-<h2>{{ page.title }}</h2>
-<p class="meta">{{ page.date | date_to_string }}</p>
-<div id="tags"> 
-	{% comment %} below, if there is more than one tag on the post, it will display "tags" otherwise only "tag" {% endcomment %}
-	{% assign numtags = page.tags.size %}
-	{% assign finalind = page.tags.size | minus: 1 %}
 
-	{{page.tags | size}} tag{% if numtags > 1 or numtags == 0 %}s{% endif %}:
-	
-	{% for tag in page.tags %}
-	    <a href="/tags">{{ tag | downcase }}</a>{% if tag != page.tags[finalind] %},
-	    {% endif %}
-	{% endfor %}
+<body>
+	<div class="main-pane">
+		<h2>{{ page.title }}</h2>
+		<p class="meta">{{ page.date | date_to_string }}</p>
+		<div id="tags">
+			{% comment %} below, if there is more than one tag on the post, it will display "tags" otherwise only "tag" {% endcomment %}
+			{% assign numtags = page.tags.size %}
+			{% assign finalind = page.tags.size | minus: 1 %}
 
-</div>
+			{{page.tags | size}} tag{% if numtags > 1 or numtags == 0 %}s{% endif %}:
 
-<div class="post">
-  {{ content }}
-</div>
-
+			{% for tag in page.tags %}
+			<a href="/tags">{{ tag | downcase }}</a>{% if tag != page.tags[finalind] %}  
+			{% endif %}
+			{% endfor %}
+			</div>
+		{{ content }}
+	</div>
+</body>

@@ -1,0 +1,343 @@
+@import 'mariana.css';
+
+@font-face {
+  font-family: "Open Sans";
+  src: url(/assets/fonts/OpenSans-Regular.woff2);
+}
+
+@font-face {
+  font-family: "Fira Code";
+  src: url(/assets/fonts/FiraCode-Regular.woff2);
+}
+
+@font-face {
+  font-family: "Iosevka";
+  src: url(/assets/fonts/Iosevka-Regular.woff2);
+}
+
+@font-face {
+  font-family: "Tajawal";
+  src: url(/assets/fonts/Tajawal-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url(/assets/fonts/NotoSansSC-Regular.otf);
+}
+
+/* The sidebar menu */
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 160px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #ffffff; /* White */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  font-family: 'Tajawal', sans-serif;
+  text-decoration: none;
+  font-size: 1.4em;
+  color: ##2E3440;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+  text-decoration: none;
+  background-color: #2E3440;
+  color: #FFFFFF;
+}
+
+/* Style page content */
+.main {
+  margin-left: 170px; /* Width of sidebar + 10px */
+  padding: 10px 10px;
+  font-family:'Tajawal', sans-serif;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+body {
+    margin-top: 60px auto;
+    margin-left: 170px;
+    width: 70%;
+}
+
+.image-list { list-style: none; }
+
+.container {
+  float: left;
+}
+
+.image {
+  display: inline-block;
+  width: 49%;
+}
+
+.caption {
+  display: block;
+  width: 49%;
+  text-align: center; /* assuming centered captions */
+}
+
+/*nav {
+    border-bottom: 1px solid #d5d5d5;
+    background-color: #B8336A;
+}*/
+
+nav ul, footer ul {
+    font-family: 'Tajawal', sans-serif;
+    list-style: none;
+    font-weight: bold;
+}
+nav ul li {
+    display: block;
+    margin-right: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #999;
+    font-family:'Tajawal', sans-serif;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #;
+    font-family:'Tajawal', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  margin-top:10px;
+  margin-bottom: 5px;
+}
+
+h1 {
+    font-size: 3em;
+    font-family:'Tajawal', sans-serif;
+    color: #2E3440;
+}
+
+h2 {
+    font-size: 2.5em;
+    font-family:'Tajawal', sans-serif;
+    color: #2E3440;
+}
+
+h3 {
+    font-size: 2em;
+    font-family:'Tajawal', sans-serif;
+    color: #2E3440;
+}
+
+h4 {
+    font-size: 1.5em;
+    font-family:'Tajawal', sans-serif;
+    color: #2E3440;
+}
+
+h5 {
+    font-size: 1.5em;
+    font-family:'Tajawal', sans-serif;
+    color: #2E3440;
+}
+
+p {
+    font-family:'Tajawal', sans-serif;
+    font-size: 1em;
+    margin-top:5px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+ul {
+    font-family:'Tajawal', sans-serif;
+    font-size: 1em;
+    line-height: 1.4em;
+    color: #333;
+    list-style-type: "→ ";
+}
+
+ol li {
+    font-family:'Tajawal', sans-serif;
+    font-size: 1em;
+    line-height: 1.4em;
+    color: #333;
+}
+
+ul li {
+    font-family:'Tajawal', sans-serif;
+    font-size: 1em;
+    line-height: 1.4em;
+    color: #333;
+}
+
+footer {
+    border-top: 1px solid #d5d5d5;
+    font-size: .8em;
+}
+
+ul.posts { 
+    font-family:'Tajawal', sans-serif;
+    margin: 20px auto 40px; 
+    font-size: 1em;
+}
+
+ul.posts li {
+    font-family:'Tajawal', sans-serif;
+    list-style: none;
+}
+
+#tags a:link, #tags a:visited {
+  font-family:'Tajawal', sans-serif;
+  background-color: #f1f1f1;
+  color: #2E3440;
+  padding: 1px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+#tags a:hover {
+  background: #F9AE58;
+}
+
+.table-wrapper {
+  width: 800px;
+  overflow-x: scroll;
+}
+
+div.tags {
+  font-family:'Tajawal', sans-serif;
+  font-size: 1em;
+}
+
+pre {
+  font-family: 'Fira Code', monospace;
+  background: #343D46;
+  color: #D8DEE9;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-size: 1em;
+}
+
+p code {
+  background: #D8DEE9;
+  font-family: monospace;
+  font-size: 1em;
+}
+
+ul code {
+  background: #D8DEE9;
+  font-family: monospace;
+  font-size: 1em;
+}
+
+ul li code {
+  background: #D8DEE9;
+  font-family: monospace;
+  font-size: 1em;
+}
+
+p zw {
+  font-family: "Noto Sans";
+}
+
+p.meta {
+  font-size: 1em;
+}
+
+
+/*
+--------------------------TABLE STYLING GOES HERE------------------------------
+/*
+/* 
+Generic Styling, for Desktops/Laptops 
+*/
+table { 
+  width: 90%; 
+  border-collapse: collapse; 
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+  background: #eee; 
+}
+th { 
+  background: #2A2B2A; 
+  color: white; 
+  font-weight: bold; 
+}
+th:nth-of-type(even) {
+  background: #2A2B2A;
+}
+td, th { 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+}
+
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+  /* Force table to not be like tables anymore */
+  table, thead, tbody, th, td, tr { 
+    display: block; 
+  }
+  
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr { 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  tr { border: 1px solid #ccc; }
+  
+  td { 
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee; 
+    position: relative;
+    padding-left: 50%; 
+  }
+  
+  td:before { 
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%; 
+    padding-right: 10px; 
+    white-space: nowrap;
+  }
+  
+  /*
+  Label the data
+  */
+  td:before { content: attr(data-title) }
+}

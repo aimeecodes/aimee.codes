@@ -1,0 +1,11 @@
+colours
+
+#D8DEE9 	Gainsboro (pale grey)
+#99C794 	Dark Sea Green
+#C695C6 	Lilac
+#D97A96 	Shimmering Blush
+#F9AE58 	Yellow Orange
+#EC5F66 	Candy Pink
+#343D46 	Charcoal
+
+<span>Photo by <a href="https://unsplash.com/@p_kuzovkova?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Polina Kuzovkova</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>

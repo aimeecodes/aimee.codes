@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ page.title }}</title>
+		<!-- link to main stylesheet -->
+		<link rel="stylesheet" type="text/css" href="/assets/css/temp.css">
+		<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+		<link rel="manifest" href="/assets/favicon/site.webmanifest">
+	</head>
+
+<header>
+	<h1 class='logo'>aimee.codes</h1>
+	<input type="checkbox" id="nav-toggle" class="nav-toggle">
+	<nav>
+		<ul>
+			<li><a href="/">home</a></li>
+			<li><a href="/about">about</a></li>
+			<li><a href="/blog">blog</a></li>
+			<li><a href="mailto:contact@aimee.codes">contact</a></li>
+			<li><a href="https://github.com/aimosjo">github</a></li>
+		</ul>
+	</nav>
+	<label for="nav-toggle" class="nav-toggle-label">
+		<span>|||</span>
+	</label>
+</header>
+
+<body>
+	<div class="container">
+		<div class="main-pane">
+			{{ content }}
+		</div>
+	</div>
+</body>

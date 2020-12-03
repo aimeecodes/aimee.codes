@@ -1,0 +1,535 @@
+@import 'mariana.css';
+
+@font-face {
+  font-family: "Open Sans";
+  src: url(/assets/fonts/OpenSans-Regular.woff2);
+}
+
+@font-face {
+  font-family: "Fira Code";
+  src: url(/assets/fonts/FiraCode-Regular.woff2);
+}
+
+@font-face {
+  font-family: "Iosevka";
+  src: url(/assets/fonts/Iosevka-Regular.woff2);
+}
+
+@font-face {
+  font-family: "Tajawal";
+  src: url(/assets/fonts/Tajawal-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url(/assets/fonts/NotoSansSC-Regular.otf);
+}
+
+:root {
+  --background: #343d46
+}
+
+/**, *::before, *::after {
+  box-sizing: border-box;
+}*/
+
+ul.posts { 
+    font-family:'Tajawal', sans-serif;
+    margin: 20px auto 40px; 
+    font-size: 1.5em;
+}
+
+ul.posts li a:link, a:visited {
+    font-family:'Tajawal', sans-serif;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #999;
+    font-family:'Tajawal', sans-serif;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #;
+    font-family:'Tajawal', sans-serif;
+}
+
+body {
+  position: absolute;
+  margin:0;
+  padding: 0;
+  background: #fff;
+  font-family: "Tajawal", sans-serif;
+  font-weight: 400;
+  font-size: 2.5em;
+  word-break: break-word;
+}
+
+.content {
+  position: absolute;
+  background-color: #333;
+  background-blend-mode: multiply;
+  background-size: cover;
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  position: relative;
+  top: 200px;
+  display: grid;
+  grid-template-columns: 1fr 14fr 1fr;
+} 
+
+.main-pane {
+  grid-column: 2 / 3;
+}
+
+.post {
+  grid-column: 2 / 3;
+}
+
+#tags a:link, #tags a:visited {
+  font-family:'Tajawal', sans-serif;
+  background-color: #f1f1f1;
+  color: #2E3440;
+  padding: 2px;
+  padding-top: 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+#tags a:hover {
+  background: #F9AE58;
+}
+
+div.tags {
+  line-height: 3em;
+}
+
+pre {
+  font-size: 1em;
+  font-family: 'Fira Code', monospace;
+  background: #343D46;
+  color: #D8DEE9;
+  padding: 0.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+}
+
+p code {
+  background: #D8DEE9;
+  font-family: monospace;
+
+}
+
+ul code {
+  background: #D8DEE9;
+  font-family: monospace;
+}
+
+ul li code {
+  background: #D8DEE9;
+  font-family: monospace;
+}
+
+ul {
+  line-height: 1.4em;
+  color: #222;
+  list-style-type: "→ ";
+}
+
+ul li {
+  font-family:'Tajawal', sans-serif;
+  color: #222;
+}
+
+ol {
+  line-height: 1.4em;
+  color: #222;
+  overflow-x: auto;
+}
+
+ol li {
+  font-family:'Tajawal', sans-serif;
+  color: #222;
+}
+
+p zw {
+  font-family: "Noto Sans";
+}
+
+/*---------------------- photo styling starts here --------------------------*/
+
+#photos-two {
+  /* Prevent vertical gaps */
+  line-height: 0;
+   
+  -webkit-column-count: 2;
+  -webkit-column-gap:   0px;
+  -moz-column-count:    2;
+  -moz-column-gap:      0px;
+  column-count:         2;
+  column-gap:           0px;  
+}
+
+#photos-two img {
+  /* Just in case there are inline attributes */
+  width: 100% !important;
+  height: auto !important;
+}
+
+@media (min-width: 1500px) {
+  #photos-grid {
+  -moz-column-count:    4;
+  -webkit-column-count: 4;
+  column-count:         4;
+  }
+  #single-graph {
+    width: 70%;
+  }
+}
+
+@media (max-width: 1500px) {
+  #photos-grid {
+  -moz-column-count:    2;
+  -webkit-column-count: 2;
+  column-count:         2;
+  }
+  #single-graph {
+    width: 60%;
+  }
+}
+@media (max-width: 1000px) {
+  #photos-grid {
+  -moz-column-count:    1;
+  -webkit-column-count: 1;
+  column-count:         1;
+  }
+  #photos-two {
+  -moz-column-count:    1;
+  -webkit-column-count: 1;
+  column-count:         1;
+  }
+  #single-graph {
+    width: 95%;
+  }
+}
+@media (max-width: 800px) {
+  #photos-grid {
+  -moz-column-count:    1;
+  -webkit-column-count: 1;
+  column-count:         1;
+  }
+    #single-graph {
+    width: 90%;
+  }
+}
+@media (max-width: 400px) {
+  #photos-grid {
+  -moz-column-count:    1;
+  -webkit-column-count: 1;
+  column-count:         1;
+  }
+    #single-graph {
+    width: 100%;
+  }
+}
+
+/*-------------------------- navigation styles start here -------------------*/
+
+header {
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
+
+.logo {
+/*  margin: 0;*/
+  color: #fff;
+}
+
+.nav-toggle{
+  display: none;
+}
+
+.nav-toggle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 1em;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+  color: #fff;
+  transform: rotate(-90deg)
+}
+
+nav {
+  position: absolute;
+  text-align: left;
+  top: 100%;
+  left: 0;
+  background: var(--background);
+  width: 100%;
+  /* display: none; */
+  transform: scale(1, 0);
+  transform-origin: top;
+  transition: transform 400ms ease-in-out;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  margin-bottom: 1em;
+  margin-left: 1em;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 2.5rem; /* this should match body */
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 50ms ease-in-out;
+}
+
+nav a:hover {
+  text-decoration: none;
+  color: #99C794;
+}
+
+.nav-toggle:checked ~ nav {
+/*  display: block;*/
+transform: scale(1,1);
+}
+
+.nav-toggle:checked ~ nav a {
+  opacity: 1;
+  transition: opacity 150ms ease-in-out 200ms;
+}
+
+/*-------------------------- link styling ----------------------------------*/
+
+
+.read-more-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 40%;
+  background-color: #f1f1f1;
+  color: #2E3440;
+  padding: 2px;
+  padding-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  border: 1;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.read-more-link:hover {
+  text-decoration: none;
+  background-color: #F9AE58;
+}
+
+/* ---------- mobile landscape navigation ---------- */
+
+@media screen and (max-height: 740px) {
+  nav {
+    font-size: 1rem;
+    line-height: 2rem;
+  }
+
+  .nav-toggle-label {
+    font-size: 1.5rem;
+  }
+
+  .logo {
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  body {
+    font-size: 1em;
+  }
+}
+
+/*------------------- non-mobile navigation starts here --------------------*/ 
+@media screen and (min-width: 1000px) {
+  
+  .nav-toggle-label {
+    display: none;
+  }
+
+  body {
+    font-size: 1em;
+  }
+
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto minmax(900px, 3fr) 1fr;
+  }
+
+  .logo {
+    grid-column: 2 / span 1;
+  }
+
+  nav {
+    all: unset;
+    grid-column: 3 / 4;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  nav ul {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  nav li {
+    margin-left: 3em;
+    margin-bottom: 0;
+  }
+
+  nav a {
+    opacity: 1;
+    position: relative;
+    font-size: 1rem;
+  }
+
+  nav a::before {
+    content: '';
+    display: block;
+    height: 5px;
+    background: white;
+    position: absolute;
+    top: -0.75em;
+    left: 0;
+    right: 0;
+    transform: scale(0,1);
+    transform-origin: left;
+    transition: transform ease-in-out 150ms;
+  }
+
+  nav a:hover::before {
+    transform: scale(1,1);
+  }
+
+  .container {
+    position: relative;
+    top: 85px;
+    display: grid;
+    grid-template-columns: 1fr auto minmax(900px, 3fr) 1fr;
+  }
+
+  .main-pane {
+    grid-column: 3 /4
+  }
+
+}
+
+/*-------------------------table styling starts here-------------------------/*
+
+/* 
+Generic Styling, for Desktops/Laptops 
+*/
+table { 
+  width: 90%; 
+  border-collapse: collapse; 
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+  background: #eee; 
+}
+th { 
+  background: #2A2B2A; 
+  color: white; 
+  font-weight: bold; 
+  min-width: 90px;
+}
+th:nth-of-type(even) {
+  background: #2A2B2A;
+}
+td, th { 
+  padding: 6px; 
+  border: 1px solid #bbb; 
+  text-align: left; 
+}
+
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media 
+only screen and (max-width: 1000px),
+/*(min-device-width: 768px) and (max-device-width: 1024px)*/  {
+
+  /* Force table to not be like tables anymore */
+  table, thead, tbody, th, td, tr { 
+    display: block; 
+  }
+
+  /* Increase font size */
+  table {
+    font-size: 34px;
+  }
+  
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr { 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  tr { border: 1px solid #ccc; }
+  
+  td { 
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #bbb; 
+    position: relative;
+    padding-left: 50%; 
+  }
+  
+  td:before { 
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%; 
+    padding-right: 10px; 
+    white-space: nowrap;
+  }
+  
+  /*
+  Label the data
+  */
+  td:before { content: attr(data-title) }
+}
