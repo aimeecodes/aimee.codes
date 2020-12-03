@@ -11,7 +11,7 @@ tags: [python, data visualization, data exploration, iowa housing]
 	}
 </style>
 
-My latest project (which I started talking about in my last post here) is related to Kaggle\'s ML competition to predict housing prices given 81 features of homes in Ames, Iowa. Let\'s jump back in!
+My latest project (which I started talking about in my last post <a href="/blog/2020/07/25/first-kaggle-competition">here</a>) is related to Kaggle\'s ML competition to predict housing prices given 81 features of homes in Ames, Iowa. Let\'s jump back in!
 
 I want to visualize some of the data, and see what relations exists between the features and our target output SalePrice.
 
