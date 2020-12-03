@@ -123,7 +123,7 @@ This means the number of the remaining variables in <code>SaleType</code> is qui
 
 Now that I\'ve had a good look at the dataset, I\'m going to start reading <a href = "https://towardsdatascience.com/random-forest-in-python-24d0893d51c0"> this blog post </a> to give me a better idea of how to debug the Random Forest algorithm, and how I can interpret my results.
 
-If you would like any of the code I used to generate my graphs, I\'ve posted it on my <a href="https://github.com/aimosjo/aimosjo.github.io/blob/master/assets/code/08-05-2020/graphingScript.py">github</a> under explorationGraphsPost.py. 
+If you would like any of the code I used to generate my graphs, I\'ve posted it on my <a href="https://github.com/aimosjo/aimosjo.github.io/blob/master/assets/code/08-05-2020/explorationGraphsPost.py">github</a> under explorationGraphsPost.py. 
 
 Thanks for reading! I\'ll leave you with a few pictures of my cats. This time, unrelated to RF or any ML algorithm - unless one comes out soon that deals with bread and/or toast.
 
