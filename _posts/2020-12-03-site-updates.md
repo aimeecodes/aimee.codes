@@ -57,3 +57,9 @@ ___
   <li>Update <code>css</code> to shrink top bar on horizontal mobile displays</li>
   <li>Add alt-text and titles to all images</li>
 </ul>
+
+___
+
+My next post in the Iowa housing dataset involes both data cleaning and feature engineering. It's been a long time coming, and I'm excited to share what I've been up to! 
+
+Until next time, 祝好！
