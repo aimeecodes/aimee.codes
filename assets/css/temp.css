@@ -275,7 +275,7 @@ header {
   align-items: center;
   font-size: 1.5em;
   color: #fff;
-  transform: rotate(-90deg)
+  transform: rotate(-90deg);
 }
 
 nav {
@@ -457,6 +457,7 @@ Generic Styling, for Desktops/Laptops
 table { 
   width: 90%; 
   border-collapse: collapse; 
+  border-spacing: 0;
   font-family: 'Fira Code', monospace;
   font-size: 12px;
   margin-left: auto;
@@ -532,4 +533,12 @@ only screen and (max-width: 1000px),
   Label the data
   */
   td:before { content: attr(data-title) }
+
+  .styling-space {
+    text-align: center;
+  }
+  .disappearing {
+    text-align: center;
+    display:none;
+  }
 }
