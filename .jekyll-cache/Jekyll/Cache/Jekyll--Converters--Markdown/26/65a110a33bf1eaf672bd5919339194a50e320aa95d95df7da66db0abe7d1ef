@@ -1,4 +1,4 @@
-I"��<p>In my last post about the Iowa housing data set, I spent some time working with a specific logical flow for filling categorical NA values - you can find that post <a href="/blog/2020/11/11/filling-NA-values">here</a>.
+I"Ⱥ<p>In my last post about the Iowa housing data set, I spent some time working with a specific logical flow for filling categorical NA values - you can find that post <a href="/blog/2020/11/11/filling-NA-values">here</a>.
 In the post previous to that, I visualized some features, using a lot of box / violin plots, count plots, and some linear regression scatter plots comparing the distribution of SalePrices when sorted by specific features. If you would like a refresher, check that post out <a href="/blog/2020/08/05/iowa-housing-exploration">here</a>.</p>
 
 <p>In this post, I’m going to walk through my process of cleaning the data in order to retain as much information as possible. Thanks to Kaggle users <a href="https://www.kaggle.com/datafan07">Ertuğrul Demir</a> and <a href="https://www.kaggle.com/goldens">Golden</a> for posting their in-depth notebooks. Both contain a wealth of information and provide a great starting base for other novice data analysts.</p>
@@ -11,7 +11,7 @@ In the post previous to that, I visualized some features, using a lot of box / v
 
 <p>By now, I’m quite familiar with this data set - but it won’t hurt us to generate a table of values specifically to highlight our missing data!</p>
 
-<p>The first thing I want to do is examine the null / <code>NA</code> values in both of the train and test datasets - if we can intelligently fill in or recategorize some values, each sample will have as many features as possible. To do this, we’ll have three datasets: <code>train_data</code>, <code>test_data</code>, and <code>merge_data</code>. The <code>merge_data</code> dataset has all of our samples from both of the train and test datasets without the <code>SalePrice</code> feature, which will make it easier for us to look at the aggregated data.</p>
+<p>The first thing I want to do is examine the null / <code>NA</code> values in both of the train and test datasets. To do this, we’ll have three datasets: <code>train_data</code>, <code>test_data</code>, and <code>merged_data</code>. The <code>merged_data</code> dataset has all of our samples from both of the train and test datasets without the <code>SalePrice</code> feature, which will make it easier for us to look at the aggregated data.</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># create features dataframes,
 # dropping SalePrice from
@@ -25,18 +25,18 @@ In the post previous to that, I visualized some features, using a lot of box / v
 
 <span class="c1"># merge the two data sets
 # for analysis, and reset index
-</span><span class="n">merge_data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">(</span>
+</span><span class="n">merged_data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">(</span>
   <span class="p">[</span><span class="n">train_features</span><span class="p">,</span>
    <span class="n">test_features</span><span class="p">]).</span><span class="n">reset_index</span><span class="p">(</span>
     <span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">train_data</span><span class="p">,</span>
   <span class="n">test_data</span><span class="p">,</span>
-  <span class="n">merge_data</span><span class="p">]</span></code></pre></figure>
+  <span class="n">merged_data</span><span class="p">]</span></code></pre></figure>
 
 <p>Having an array of datasets will come in handy later when we need to access each dataset to make any adjustments.</p>
 
-<p>Using <code>merge_data</code>, I created a summary table with three purposes:</p>
+<p>Using <code>merged_data</code>, I created a summary table with three purposes:</p>
 
 <p>(1) Calculate how many samples have <code>NA</code>s for each feature,</p>
 
@@ -72,6 +72,34 @@ In the post previous to that, I visualized some features, using a lot of box / v
       <td data-title="Overview" class="text">[nan, Shed, Gar2, Othr, TenC]</td>
     </tr>
     <tr>
+      <th data-title="Feature" class="text">Alley</th>
+      <td data-title="NA Count" class="numeric">2721</td>
+      <td data-title="% Missing" class="numeric">0.93217</td>
+      <td data-title="Data Type" class="text">object</td>
+      <td data-title="Overview" class="text">[nan, Grvl, Pave]</td>
+    </tr>
+    <tr>
+      <th data-title="Feature" class="text">Fence</th> 
+      <td data-title="NA Count" class="numeric">2348</td>
+      <td data-title="% Missing" class="numeric">0.80439</td>
+      <td data-title="Data Type" class="text">object</td>
+      <td data-title="Overview" class="text">[nan, MnPrv, GdWo, GdPrv, MnWw]</td>
+    </tr>
+    <tr>
+      <th data-title="Feature" class="text">FireplaceQu</th>
+      <td data-title="NA Count" class="numeric">1420</td>
+      <td data-title="% Missing" class="numeric">0.48647</td>
+      <td data-title="Data Type" class="text">object</td>
+      <td data-title="Overview" class="text">[nan, TA, Gd, Fa, Ex, Po]</td>
+    </tr>
+    <tr>
+      <th data-title="Feature" class="text">LotFrontage</th>
+      <td data-title="NA Count" class="numeric">486</td>
+      <td data-title="% Missing" class="numeric">0.16650</td>
+      <td data-title="Data Type" class="text">float64</td>
+      <td data-title="Overview" class="text">[21, 313, 69.0, 68]</td>
+    </tr>
+    <tr>
       <th class="styling-space">...</th>
       <td class="disappearing">...</td>
       <td class="disappearing">...</td>
@@ -83,7 +111,7 @@ In the post previous to that, I visualized some features, using a lot of box / v
 
 <p><a class="read-more-link" href="/assets/missing-values-summary.html"> See full table </a></p>
 
-<p>The script that generated this table is available on <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/missingValuesSummary.py">my github</a>.</p>
+<center>The script that generated this table is available on <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/missingValuesSummary.py">my github</a>.</center>
 
 <p>We’ve got our work laid out, time to start cleaning!
 <br /></p>
@@ -159,11 +187,11 @@ In the post previous to that, I visualized some features, using a lot of box / v
 
 <p>There is only 1 sample that is missing both Exterior1st and Exterior2nd features, and it is in the Edwards <code>Neighborhood</code>:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask1</span> <span class="o">=</span> <span class="n">merge_data</span><span class="p">[</span> 
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask1</span> <span class="o">=</span> <span class="n">merged_data</span><span class="p">[</span> 
   <span class="s">'Exterior1st'</span><span class="p">].</span><span class="n">isna</span><span class="p">()</span>
-<span class="n">mask2</span> <span class="o">=</span> <span class="n">merge_data</span><span class="p">[</span> 
+<span class="n">mask2</span> <span class="o">=</span> <span class="n">merged_data</span><span class="p">[</span> 
   <span class="s">'Exterior2nd'</span><span class="p">].</span><span class="n">isna</span><span class="p">()</span>
-<span class="n">merge_data</span><span class="p">[</span><span class="n">mask1</span> <span class="o">&amp;</span> <span class="n">mask2</span><span class="p">]</span>
+<span class="n">merged_data</span><span class="p">[</span><span class="n">mask1</span> <span class="o">&amp;</span> <span class="n">mask2</span><span class="p">]</span>
   <span class="p">[</span><span class="s">'ExterQual'</span><span class="p">,</span>
   <span class="s">'ExterCond'</span><span class="p">,</span>
   <span class="s">'Neighborhood'</span><span class="p">]</span>
@@ -173,14 +201,14 @@ In the post previous to that, I visualized some features, using a lot of box / v
 
 <p>To make an accurate prediction, we can examine other houses in the Edwards <code>Neighborhood</code> with identical <code>ExterQual</code> and <code>ExterCond</code> values to see what the distribution looks like:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask3</span> <span class="o">=</span> <span class="n">merge_data</span><span class="p">[</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask3</span> <span class="o">=</span> <span class="n">merged_data</span><span class="p">[</span>
   <span class="s">'Neighborhood'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'Edwards'</span>
-<span class="n">mask4</span> <span class="o">=</span> <span class="n">merge_data</span><span class="p">[</span>
+<span class="n">mask4</span> <span class="o">=</span> <span class="n">merged_data</span><span class="p">[</span>
   <span class="s">'ExterQual'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'TA'</span>
-<span class="n">mask5</span> <span class="o">=</span> <span class="n">merge_data</span><span class="p">[</span>
+<span class="n">mask5</span> <span class="o">=</span> <span class="n">merged_data</span><span class="p">[</span>
   <span class="s">'ExterCond'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'TA'</span>
 
-<span class="n">merge_data</span><span class="p">[</span><span class="n">mask3</span>
+<span class="n">merged_data</span><span class="p">[</span><span class="n">mask3</span>
   <span class="o">&amp;</span> <span class="n">mask4</span> <span class="o">&amp;</span> <span class="n">mask5</span><span class="p">][[</span>
   <span class="s">'Exterior1st'</span><span class="p">,</span>
   <span class="s">'Exterior2nd'</span><span class="p">]].</span><span class="n">value_counts</span><span class="p">()</span>
@@ -234,10 +262,10 @@ In the post previous to that, I visualized some features, using a lot of box / v
 
 <p>First, only 2 samples from the test set are missing this feature:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask4</span> <span class="o">=</span> <span class="n">merge_data</span><span class="p">[</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask4</span> <span class="o">=</span> <span class="n">merged_data</span><span class="p">[</span>
 <span class="s">'Functional'</span><span class="p">].</span><span class="n">isna</span><span class="p">()</span>
 
-<span class="n">merge_data</span><span class="p">[</span><span class="n">mask4</span><span class="p">][</span>
+<span class="n">merged_data</span><span class="p">[</span><span class="n">mask4</span><span class="p">][</span>
   <span class="p">[</span><span class="s">'Id'</span><span class="p">,</span>
    <span class="s">'Functional'</span><span class="p">]</span> <span class="o">+</span>
   <span class="n">condFeatures</span><span class="p">]</span>
@@ -252,8 +280,8 @@ In the post previous to that, I visualized some features, using a lot of box / v
 
 <p>(1) Pop out all of these features into a separate deep copied dataframe so none of my fiddling will affect the underlying data.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask5</span> <span class="o">=</span> <span class="n">merge_data</span><span class="p">[</span><span class="s">'Functional'</span><span class="p">].</span><span class="n">isna</span><span class="p">()</span>
-<span class="n">condfeatdf</span> <span class="o">=</span> <span class="n">merge_data</span><span class="p">[</span><span class="o">~</span><span class="n">mask5</span><span class="p">][</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask5</span> <span class="o">=</span> <span class="n">merged_data</span><span class="p">[</span><span class="s">'Functional'</span><span class="p">].</span><span class="n">isna</span><span class="p">()</span>
+<span class="n">condfeatdf</span> <span class="o">=</span> <span class="n">merged_data</span><span class="p">[</span><span class="o">~</span><span class="n">mask5</span><span class="p">][</span>
   <span class="p">[</span><span class="s">'Id'</span><span class="p">,</span>
    <span class="s">'Functionality'</span><span class="p">,</span>
    <span class="n">condFeatures</span><span class="p">]].</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -317,7 +345,9 @@ In the post previous to that, I visualized some features, using a lot of box / v
 <span class="n">BC</span>                 <span class="mf">0.096</span>  <span class="mf">0.140</span>
 <span class="n">EC</span>                        <span class="mf">0.093</span></code></pre></figure>
 
-<p>This doesn’t bode well for my hypothesis at all - if we consider the condition scales linear, then the feature with the highest correlation to <code>Functional</code> is <code>BsmtCond</code> with a value of only 0.19. Remember many of our homes have a <code>BsmtCond</code> value of 0 under the new mapping… There are a lot of assumptions here, and frankly for only 2 missing values, this entire expedition may have been overkill. Ultimately, we will fill the two <code>NA</code> values with the mode, and fondly remember how to use <code>map</code> for the next time we need to change from a categorical variable to a numerical one. Good thing I made a deep copy to play around with instead!</p>
+<p>This doesn’t bode well for my hypothesis at all - if we consider the condition scales linear, then the feature with the highest correlation to <code>Functional</code> is <code>BsmtCond</code> with a value of only 0.19.</p>
+
+<p>Another issue is that many homes have a <code>BsmtCond</code> value of 0 under the new mapping, and it is not immediately clear that if a house has a <code>BsmtCond</code> of 0, it does not have a lower quality basement than a home with a <code>BsmtCond</code> value of 1. There are a lot of assumptions here, and frankly for only 2 missing values, this entire expedition may have been overkill. Ultimately, we will fill the two <code>NA</code> values with the mode, and fondly remember how to use <code>map</code> for the next time we need to change from a categorical variable to a numerical one. Good thing I made a deep copy to play around with instead!</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
   <span class="n">ds</span><span class="p">[</span><span class="s">'Functional'</span><span class="p">]</span> <span class="o">=</span>
@@ -351,7 +381,7 @@ In the post previous to that, I visualized some features, using a lot of box / v
 
 <p>First, let’s see the correlation between <code>LotArea</code> and <code>LotFrontage</code>.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">merge_data</span><span class="p">[</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">merged_data</span><span class="p">[</span>
   <span class="p">[</span><span class="s">'LotArea'</span><span class="p">,</span> \
   <span class="s">'LotFrontage'</span><span class="p">]].</span><span class="n">corr</span><span class="p">()</span>
 
@@ -359,7 +389,7 @@ In the post previous to that, I visualized some features, using a lot of box / v
 <span class="n">LA</span>  <span class="mf">1.000000</span>  <span class="mf">0.489896</span>
 <span class="n">LF</span>  <span class="mf">0.489896</span>  <span class="mf">1.000000</span></code></pre></figure>
 
-<p>0.48 isn’t the best correlation we’ve seen - we can see something interesting happening if we group the houses by another variable, <code>LotConfig</code>, which gives us more information about the layout of the lot.</p>
+<p>0.48 isn’t a very strong correlation value - there isn’t a clear linear relationship between our two features. However, we’re going to examine another feature <code>LotConfig</code> which can tell us more about the relationship of <code>LotFrontage</code> and <code>LotArea</code>.</p>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">LotConfig:  Lot configuration
   Inside    Inside lot
@@ -374,8 +404,8 @@ In the post previous to that, I visualized some features, using a lot of box / v
 
 <p>First, we can examine the distribution of the <code>LotConfig</code> feature of the samples which are missing <code>LotFrontage</code>:</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask6</span> <span class="o">=</span> <span class="n">merge_data</span><span class="p">[</span><span class="s">'LotFrontage'</span><span class="p">].</span><span class="n">isna</span><span class="p">()</span>
-<span class="n">merge_data</span><span class="p">[</span><span class="n">mask6</span><span class="p">]</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask6</span> <span class="o">=</span> <span class="n">merged_data</span><span class="p">[</span><span class="s">'LotFrontage'</span><span class="p">].</span><span class="n">isna</span><span class="p">()</span>
+<span class="n">merged_data</span><span class="p">[</span><span class="n">mask6</span><span class="p">]</span>
   <span class="p">[</span><span class="s">'LotConfig'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span>
 
 <span class="n">Inside</span>     <span class="mi">271</span>
@@ -384,7 +414,7 @@ In the post previous to that, I visualized some features, using a lot of box / v
 <span class="n">FR2</span>         <span class="mi">20</span>
 <span class="n">FR3</span>          <span class="mi">4</span></code></pre></figure>
 
-<p>The vast majority of our samples with a missing <code></code> value have either Inside or Corner as a <code>LotConfig</code>. To get a better idea of the correlation between these variables, we can look at how a simple linear model lines up on the subplots of each configuration:</p>
+<p>~77% (374/486) of our samples with a missing <code></code> value have either Inside or Corner as a <code>LotConfig</code>. To get a better idea of the correlation between these variables, we can look at how a simple linear model lines up on the subplots of each configuration:</p>
 
 <section id="photos-grid">
   <img src="/assets/images/AreaFrontageSubplot0.svg" width="98%" />
@@ -394,15 +424,15 @@ In the post previous to that, I visualized some features, using a lot of box / v
   <img src="/assets/images/AreaFrontageSubplot4.svg" width="98%" />
 </section>
 
-<center>The code used to generate these graphs is available <a href="">on my github</a>.</center>
+<center>The code used to generate these graphs is available <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/featureEngineeringGraphs.py">on my github</a>.</center>
 
 <p>Important to notice - I limited the <code>LotArea &lt;= 80000</code> since there is one outlier which skews all figures off to the right, at over 200000 square feet (200 when scaled, as seen here).</p>
 
 <p>You can also see there is an issue with <code>CulDSac</code> properties - the linear model does not fit the data at all. Below, you can see this reflected in the correlations between <code>LotArea</code> and <code>LotFrontage</code> when grouped by <code>LotConfig</code>.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask6</span> <span class="o">=</span> <span class="n">merge_data</span><span class="p">[</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mask6</span> <span class="o">=</span> <span class="n">merged_data</span><span class="p">[</span>
   <span class="s">'LotArea'</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">80000</span>
-<span class="n">merge_data</span><span class="p">[</span><span class="n">mask6</span><span class="p">].</span><span class="n">groupby</span><span class="p">(</span>
+<span class="n">merged_data</span><span class="p">[</span><span class="n">mask6</span><span class="p">].</span><span class="n">groupby</span><span class="p">(</span>
   <span class="s">'LotConfig'</span><span class="p">)[</span>
     <span class="p">[</span><span class="s">'LotArea'</span><span class="p">,</span>
     <span class="s">'LotFrontage'</span><span class="p">]].</span><span class="n">corr</span><span class="p">()</span>
@@ -422,7 +452,7 @@ In the post previous to that, I visualized some features, using a lot of box / v
 
 <p>Comparing this to our previous correlation calculation, there is a strict improvement in correlation for all <code>LotConfig</code> features except for <code>CulDSac</code> which could be due to the irregular shape of <code>CulDSac</code> lots, and their disproportionately small <code>LotFrontage</code> measure. I predict that, even with the poor predictions for <code>CulDSac</code> lots which make up 87 of our missing 486, we will have success using the linear relationship between <code>LotArea</code> and <code>LotFrontage</code> grouped by <code>LotConfig</code> to fill in our missing <code>LotFrontage</code> feature.</p>
 
-<p>To do this, I will separate <code>merge_data</code> into 5 subsets (one for each possible value of <code>LotConfig</code>), remove the <code>NAs</code> from each subset, and then use the resulting subset to train a linear model.</p>
+<p>To do this, I will separate <code>merged_data</code> into 5 subsets (one for each possible value of <code>LotConfig</code>), remove the <code>NA</code>s from each subset, and then use the resulting subset to train a linear model.</p>
 
 <p>The code used to do this is much easier to view <a href="">on github</a>, since I used a custom function, which, when applied to the data, is able to replace an <code>NA</code> <code>LotFrontage</code> value with a predicted one.</p>
 
@@ -450,7 +480,7 @@ In the post previous to that, I visualized some features, using a lot of box / v
   <img src="/assets/images/AreaFrontageSubplotPostFill4.svg" width="49%" />
 </section>
 
-<p>It is not perfect, but it does let us keep <code>LotFrontage</code> as a feature, and this might help boost the performance of our algorithm. Another way we can visualize how the data was changed is by using <code>.describe()</code> on <code>merge_data['LotFrontage']</code> before and after filling.</p>
+<p>It is not perfect, but it does let us keep <code>LotFrontage</code> as a feature, and this might help boost the performance of our algorithm. Another way we can visualize how the data was changed is by using <code>.describe()</code> on <code>merged_data['LotFrontage']</code> before and after filling.</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python">         <span class="n">Prefill</span>  <span class="n">Postfill</span> 
 <span class="n">count</span>    <span class="mf">2433.00</span>   <span class="mf">2919.00</span>    
@@ -466,8 +496,8 @@ In the post previous to that, I visualized some features, using a lot of box / v
 
 <p>First, we should confirm that the single sample that is missing both <code>GarageArea</code> and <code>GarageCars</code> has a <code>GarageType</code> other than <code>None</code>, otherwise we will simply fill these in with <code>0</code>.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">merge_data</span><span class="p">[</span>
- <span class="n">merge_data</span><span class="p">[</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">merged_data</span><span class="p">[</span>
+ <span class="n">merged_data</span><span class="p">[</span>
   <span class="s">'GarageCars'</span><span class="p">].</span><span class="n">isna</span><span class="p">()][[</span>
    <span class="s">'GarageType'</span><span class="p">,</span>
    <span class="s">'GarageArea'</span><span class="p">,</span>
@@ -481,7 +511,7 @@ In the post previous to that, I visualized some features, using a lot of box / v
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="p">(</span>
   <span class="n">test_data</span><span class="p">,</span>
   <span class="n">train_data</span><span class="p">,</span>
-  <span class="n">merge_data</span><span class="p">):</span>
+  <span class="n">merged_data</span><span class="p">):</span>
     <span class="n">ds</span><span class="p">[</span><span class="s">'GarageCars'</span><span class="p">]</span> <span class="o">=</span> \
       <span class="n">ds</span><span class="p">[</span><span class="s">'GarageCars'</span><span class="p">].</span><span class="n">fillna</span><span class="p">(</span>
       <span class="n">groupby</span><span class="p">(</span><span class="s">'GarageType'</span><span class="p">)</span> \
