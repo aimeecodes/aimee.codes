@@ -26,9 +26,9 @@
     <tr>
       <td data-title='Feature' class='text'>Alley</td>
       <td data-title='NA Count' class='numeric'>2721</td>
-      <td data-title='% Missing' class='numeric'>0.93217</td>
-      <td data-title='Data Type' class='text'>object</td>
-      <td data-title='Overview' class='text'>[nan, Grvl, Pave]</td>
+      <td>0.93217</td>
+      <td>object</td>
+      <td>[nan, Grvl, Pave]</td>
     </tr>
     <tr>
       <td data-title='Feature' class='text'>Fence</td>
@@ -45,6 +45,7 @@
       <td data-title='Overview' class='text'>[nan, TA, Gd, Fa, Ex, Po]</td>
     </tr>
     <tr>
+      
       <td data-title='Feature' class='text'>LotFrontage</td>
       <td data-title='NA Count' class='numeric'>486</td>
       <td data-title='% Missing' class='numeric'>0.16650</td>

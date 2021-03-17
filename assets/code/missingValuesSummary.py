@@ -1,4 +1,3 @@
-
 ###############################################################################
 #                                                                             #
 #           run this to explore the missing values in the dataset             #
@@ -6,31 +5,12 @@
 ###############################################################################
 
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error
-from sklearn.model_selection import train_test_split
+# read in the dataset
+# this path should be the merged dataset, cleaned or uncleaned
+merge_data_path = 'cleaned_ihd_merged.csv'
 
-# read in the datasets
-train_data_path = 'iowa-home-data/train.csv'
-test_data_path = 'iowa-home-data/test.csv'
-
-train_data = pd.read_csv(train_data_path)
-test_data = pd.read_csv(test_data_path)
-
-
-n = 0;
-# initialze value for random seed, otherwise n will default to 0
-# n = np.random.randint(100)
-
-# merge the two data sets for analysis
-merge_data = pd.concat([train_data, test_data])
-
-# drop the SalePrice feature
-merge_data = merge_data.drop('SalePrice', axis=1)
+merge_data = pd.read_csv(merge_data_path)
 
 # capture dtypes for all features
 types = merge_data.dtypes
@@ -73,5 +53,3 @@ df.reset_index(drop=True, inplace=True)
 # export df to file
 # df.transpose().to_html('missing-values.html')
 df.to_html('missing-values.html')
-
-print(df)

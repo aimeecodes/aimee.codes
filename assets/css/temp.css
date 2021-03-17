@@ -111,6 +111,12 @@ div.tags {
   line-height: 3em;
 }
 
+figure.highlight {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
 pre {
   font-size: 1em;
   font-family: 'Fira Code', monospace;
@@ -189,9 +195,9 @@ p zw {
 
 @media (min-width: 1500px) {
   #photos-grid {
-  -moz-column-count:    4;
-  -webkit-column-count: 4;
-  column-count:         4;
+  -moz-column-count:    3;
+  -webkit-column-count: 3;
+  column-count:         3;
   }
   #single-graph {
     width: 70%;
@@ -478,7 +484,7 @@ th:nth-of-type(even) {
 }
 td, th { 
   padding: 6px; 
-  border: 1px solid #bbb; 
+  border: 1px solid #ccc; 
   text-align: left; 
 }
 
