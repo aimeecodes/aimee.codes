@@ -3,10 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.metrics import mean_absolute_error
-from sklearn.model_selection import train_test_split
 from tabulate import tabulate
 from numpy.polynomial.polynomial import polyfit
 
