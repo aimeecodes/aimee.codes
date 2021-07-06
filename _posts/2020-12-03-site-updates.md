@@ -6,11 +6,9 @@ tags: [projects, jekyll]
 ---
 
 Here's a list of the most recent updates to the site!
-<ul>
-  <li>Completely overhauled the site's <code>css</code> based around the responsive top navigation bar, with the classic hamburger drop down mobile menu - thank you to <a href="https://www.youtube.com/watch?v=8QKOaTYvYUA">Kevin Powell</a> for the easy to follow tutorial!</li>
-  <li>Reformatted how tables are displayed! In an upcoming post, I work with long and kind of unweildy data summaries and I want a clean way of displaying that for both desktop and mobile users. Using <a href="https://css-tricks.com/responsive-data-tables/">this</a> as my jumping off point, I made the tables easier to view on a mobile device (rows transform into "cards"). By default, only the headers, 2 rows of data, and a link to the full table are displayed to avoid content disruption.
-    <br><i>If you want to see the change happen live and you're on the desktop site, try resizing the window under 1000px</i></li>
-</ul>
+* Completely overhauled the site's `css` based around the responsive top navigation bar, with the classic hamburger drop down mobile menu - thank you to <a href="https://www.youtube.com/watch?v=8QKOaTYvYUA">Kevin Powell</a> for the easy to follow tutorial!
+* Reformatted how tables are displayed! In an upcoming post, I work with long and kind of unweildy data summaries and I want a clean way of displaying that for both desktop and mobile users. Using <a href="https://css-tricks.com/responsive-data-tables/">this</a> as my jumping off point, I made the tables easier to view on a mobile device (rows transform into "cards"). By default, only the headers, 2 rows of data, and a link to the full table are displayed to avoid content disruption.
+    <br>*If you want to see the change happen live and you're on the desktop site, try resizing the window under 1000px*
 
 <table border="1" class="dataframe">
   <thead>
@@ -47,27 +45,23 @@ Here's a list of the most recent updates to the site!
   </tbody>
 </table>
 
-<a class='read-more-link' href='/assets/missing-values-summary.html'> See full table </a>
+<a class='read-more-link' href='/assets/html-tables/2021-03-17/missing-values-responsive-asset-access.html'> See full table </a>
 
-<ul>
-  <li>Created content pages so when you do access the linked full table, or a plot , the <code>css</code> formatting makes the table easier to read, in both mobile and desktop view</li>
-  <li>Changed graphics from <code>.png</code> format to <code>.svg</code> and create multiple <code>@media</code> inquiries in <code>css</code> to determine picture position / scaling for different screen sizes
-    <br><i>Note - this only applies to my most recent posts, as I have not yet revisited the graphs generated in Octave from Andrew Ng's Machine Learning course</i></li>
-  <li>Now <code>assets/</code> holds ~all~ site assets, including <code>css</code> code, images, html tables, and (now) fonts! Within <code>assets/</code> items are organized on a media type level first, then further divide into specific posts. This might change in the future when the media I use gets significantly more complicated</li>
-</ul>
+* Created content pages so when you do access the linked full table, or a plot , the `css` formatting makes the table easier to read, in both mobile and desktop view
+* Changed graphics from `.png` format to `.svg` and create multiple `@media` inquiries in `css` to determine picture position / scaling for different screen sizes
+    <br>*Note - this only applies to my most recent posts, as I have not yet revisited the graphs generated in Octave from Andrew Ng's Machine Learning course*
+* Now `assets/` holds ~all~ site assets, including `css` code, images, html tables, and (now) fonts! Within `assets/` items are organized on a media type level first, then further divide into specific posts. This might change in the future when the media I use gets significantly more complicated
 
 ___
 
-<h3>Upcoming Changes</h3>
-<ul>
-  <li>Create site logo, to be displayed alongside navigation bar</li>
-  <li>Update <code>css</code> to shrink top bar on horizontal mobile displays</li>
-  <li>Add alt-text and titles to all images</li>
-  <li>Add rounded edges to tables, to match other site formatting</li>
-</ul>
+### Upcoming Changes ###
+* Create site logo, to be displayed alongside navigation bar
+* Update `css` to shrink top bar on horizontal mobile displays
+* Add alt-text and titles to all images
+* Add rounded edges to tables, to match other site formatting
 
 ___
 
-Now that I'm satisfied with the site changes (...for now...) I'm going to replace my web dev hat with my data analyst one. My next post in the Iowa housing dataset involes both data cleaning and feature engineering. It's been a long time coming, and I'm excited to share what I've been up to! 
+Now that I'm satisfied with the site changes (...for now...) I'm going to replace my web dev hat with my data analyst one. My next post in the Iowa housing dataset involes both data cleaning and feature engineering. It's been a long time coming, and I'm excited to share what I've been up to!
 
 Until next time, 祝好！

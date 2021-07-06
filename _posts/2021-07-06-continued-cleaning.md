@@ -43,13 +43,13 @@ There are some outliers in important features `LotArea` and `GrLivArea`. First, 
 I then made another filter, based only on the graphs I had seen, with these marked as outliers: `GrLivArea >= 4000` and `LotArea >= 80000`. Below are the two features mapped against `SalePrice`, where non-outliers are marked in green, IQR determined outliers are marked in orange, and outliers determined by my graphical filter are marked with a star.
 
 <p align=center>
-<img src="/assets/images/CheckingforOutliersScatterPlot.svg" width = '95%'>
+<img src="/assets/images/2021-07-06/CheckingforOutliersScatterPlot.svg" width = '95%'>
 </p>
 
 I generated the same graphs, using the logarithm of the features to see the distribution without the clumping around the origin in the second graph:
 
 <p align=center>
-<img src="/assets/images/CheckingforLogOutliersScatterPlot.svg"  width = '95%'>
+<img src="/assets/images/2021-07-06/CheckingforLogOutliersScatterPlot.svg"  width = '95%'>
 </p>
 
 These graphs helped me make the decision not to use the IQR filtering rule because it removes too many data points. The only points I feel confident removing based on `GrLivArea` are the three points in the lower right corner of the `GrLivArea` graph, as the other two marked by my filter still appear to follow the trend. The other points I feel confident removing based on `LotArea` are the four on the right side of the `LotArea` graph, since these lot sizes are far larger than any other lot seen in our dataset.
@@ -156,8 +156,8 @@ By the documentation, `MSSubClass` is a combination of 3 features: `HouseStyle`,
 </table>
 
 <p align=center>
-<img src="/assets/images/PUDMSSubclassSalePriceBox.svg" alt="Boxplot showing relation between Sale Price and MSSubClass" width = '90%'>
-<img src="/assets/images/PUDMSSubclassSalePriceBar.svg" alt="Boxplot showing relation between Sale Price and MSSubClass" width = '90%'>
+<img src="/assets/images/2021-07-06/PUDMSSubclassSalePriceBox.svg" alt="Boxplot showing relation between Sale Price and MSSubClass" width = '90%'>
+<img src="/assets/images/2021-07-06/PUDMSSubclassSalePriceBar.svg" alt="Boxplot showing relation between Sale Price and MSSubClass" width = '90%'>
 <br><sub>Note different scales for y-axis `SalePrice`</sub>
 </p>
 
@@ -261,9 +261,9 @@ I believe this creation of simple features, although losing a degree of granular
 This feature has 8 levels, where there are 2 levels for 1.5 story homes (finished and unfinished), 2 levels for 2.5 story homes (finished and unfinished) and 2 levels for split homes. I will merge the finished and unfinished for each style as their IQRs and means are not too far off, and there are relatively few instances of each.
 
 <p align=center>
-<img src="/assets/images/HouseStylePreMergeSalePriceBoxPlot.svg" alt="Boxplot showing relation between Sale Price and HouseStyle" width = '90%'>
+<img src="/assets/images/2021-07-06/HouseStylePreMergeSalePriceBoxPlot.svg" alt="Boxplot showing relation between Sale Price and HouseStyle" width = '90%'>
 <br><sub>Before merge</sub><br>
-<img src="/assets/images/HouseStylePostMergeSalePriceBoxPlot.svg" alt="Boxplot showing relation between Sale Price and HouseStyle" width = '90%'>
+<img src="/assets/images/2021-07-06/HouseStylePostMergeSalePriceBoxPlot.svg" alt="Boxplot showing relation between Sale Price and HouseStyle" width = '90%'>
 <br><sub>After merge</sub>
 </p>
 
@@ -432,9 +432,9 @@ Similar to `HouseStyle`, I will merge these based on their similar categories:
 </table>
 
 <p align=center>
-<img src="/assets/images/SaleTypePreMergeSalePriceBoxPlot.svg" alt="Boxplot showing relation between Sale Price and HouseStyle" width = '90%'>
+<img src="/assets/images/2021-07-06/SaleTypePreMergeSalePriceBoxPlot.svg" alt="Boxplot showing relation between Sale Price and HouseStyle" width = '90%'>
 <br><sub>Before merge</sub><br>
-<img src="/assets/images/SaleTypePostMergeSalePriceBoxPlot.svg" alt="Boxplot showing relation between Sale Price and HouseStyle" width = '90%'>
+<img src="/assets/images/2021-07-06/SaleTypePostMergeSalePriceBoxPlot.svg" alt="Boxplot showing relation between Sale Price and HouseStyle" width = '90%'>
 <br><sub>After merge</sub>
 </p>
 
@@ -442,7 +442,7 @@ Similar to `HouseStyle`, I will merge these based on their similar categories:
 First, we can look at the distribution of `SalePrice` when sorted by `SaleCondition`:
 
 <p align=center>
-<img src="/assets/images/SaleConditionSalePriceBoxPlot.svg" width = '90%'>
+<img src="/assets/images/2021-07-06/SaleConditionSalePriceBoxPlot.svg" width = '90%'>
 </p>
 
 What we do now depends entirely on what kinds of homes we want to predict the `SalePrice` of. If the goal is to predict an average home for a potential home buyer, the model should look only at `Normal` sales, since other types are not representative of prices seen. If the goal is to predict the price of any real estate transaction in Ames, Iowa, all data points should be kept.
