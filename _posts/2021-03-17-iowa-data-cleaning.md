@@ -18,7 +18,7 @@ ___
 
 By now, I'm quite familiar with this data set - but it won't hurt us to generate a table of values specifically to highlight our missing data!
 
-The first thing I want to do is examine the null / <code>NA</code> values in both of the train and test datasets. To do this, we'll have three datasets: <code>train_data</code>, <code>test_data</code>, and <code>merged_data</code>. The <code>merged_data</code> dataset has all of our samples from both of the train and test datasets without the <code>SalePrice</code> feature, which will make it easier for us to look at the aggregated data.
+The first thing I want to do is examine the null / `NA` values in both of the train and test datasets. To do this, we'll have three datasets: `train_data`, `test_data`, and `merged_data`. The `merged_data` dataset has all of our samples from both of the train and test datasets without the `SalePrice` feature, which will make it easier for us to look at the aggregated data.
 
 {% highlight python %}
 # create features dataframes,
@@ -45,9 +45,9 @@ datasets = [train_data,
 
 Having an array of datasets will come in handy later when we need to access each dataset to make any adjustments.
 
-Using <code>merged_data</code>, I created a summary table with three purposes:
+Using `merged_data`, I created a summary table with three purposes:
 
-(1) Calculate how many samples have <code>NA</code>s for each feature,
+(1) Calculate how many samples have `NA`s for each feature,
 
 (2) Describe the data type of each feature,
 
@@ -118,9 +118,9 @@ This is easily visualized in the table below:
   </tbody>
 </table>
 
-<a class='read-more-link' href='/assets/missing-values-summary.html'> See full table </a>
+<a class='read-more-link' href='/assets/html-tables/2021-03-17/missing-values-responsive-asset-access.html'> See full table </a>
 
-<center>The script that generated this table is available on <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/missingValuesSummary.py">my github</a>.</center>
+<center>The script that generated this table is available on <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/2021-03-17/missingValuesSummary.py">my github</a>.</center>
 
 We've got our work laid out, time to start cleaning!
 <br>
@@ -132,7 +132,7 @@ ___
 
 #### Categorical Features with "NA / nan" which mean "None" ####
 
-For many of the categorical features, <code>NA</code> is used if the sample doesn't contain the given feature. For these samples, we will change the sample feature to <code>None</code> instead. 
+For many of the categorical features, `NA` is used if the sample doesn't contain the given feature. For these samples, we will change the sample feature to `None` instead.
 
 {% highlight python %}none_cols = [
   'PoolQC',
@@ -154,7 +154,7 @@ For many of the categorical features, <code>NA</code> is used if the sample does
 
 for col in none_cols:
   for ds in datasets:
-      ds[col] = 
+      ds[col] =
         ds[col].fillna("None")
 {% endhighlight %}
 <br>
@@ -162,7 +162,7 @@ for col in none_cols:
 <br>
 #### Numerical features with "NA / nan" which mean 0 ####
 
-These numerical features just need 0 instead of <code>NA</code>, since for these samples, the feature doesn't exist.
+These numerical features just need 0 instead of `NA`, since for these samples, the feature doesn't exist.
 
 {% highlight python %}
 zero_cols = [
@@ -191,11 +191,11 @@ These are categorical features which are missing from 1-4 samples.
 
 #### MSZoning / Exterior1st / Exterior2nd ####
 
-*Filling <code>MSZoning</code> is the subject of another post, which can be found <a href="/blog/2020/11/11/filling-NA-values">here</a>!*
+*Filling `MSZoning` is the subject of another post, which can be found <a href="/blog/2020/11/11/filling-NA-values">here</a>!*
 
-Since the distribution of values for <code>MSZoning</code>, <code>Exterior1st</code>, and <code>Exterior2nd</code> appear to depend on which <code>Neighborhood</code> the house is located in, we need to group our features by <code>Neighborhood</code>, then use the mode of the given feature to fill in the NAs.
+Since the distribution of values for `MSZoning`, `Exterior1st`, and `Exterior2nd` appear to depend on which `Neighborhood` the house is located in, we need to group our features by `Neighborhood`, then use the mode of the given feature to fill in the NAs.
 
-There is only 1 sample that is missing both Exterior1st and Exterior2nd features, and it is in the Edwards <code>Neighborhood</code>: 
+There is only 1 sample that is missing both Exterior1st and Exterior2nd features, and it is in the Edwards `Neighborhood`: 
 {% highlight python %}
 mask1 = merged_data[ 
   'Exterior1st'].isna()
@@ -210,7 +210,7 @@ merged_data[mask1 & mask2]
 2151  TA   3  Edwards
 {% endhighlight %}
 
-To make an accurate prediction, we can examine other houses in the Edwards <code>Neighborhood</code> with identical <code>ExterQual</code> and <code>ExterCond</code> values to see what the distribution looks like:
+To make an accurate prediction, we can examine other houses in the Edwards `Neighborhood` with identical `ExterQual` and `ExterCond` values to see what the distribution looks like:
 
 {% highlight python %}
 mask3 = merged_data[
@@ -248,7 +248,7 @@ BrkComm      Brk Cmn         1
 AsphShn      AsphShn         1
 {% endhighlight %}
 
-From the above result, we should be able to see Wd Sdng is the most common <code>Exterior1st</code> and <code>Exterior2nd</code> value for homes in the Edwards <code>Neighborhood</code> with TA for both <code>ExterQual</code> and <code>ExterCond</code> values. This is the value we want assigned to both <code>Exterior1st</code> and <code>Exterior2nd</code> for the missing value.
+From the above result, we should be able to see Wd Sdng is the most common `Exterior1st` and `Exterior2nd` value for homes in the Edwards `Neighborhood` with TA for both `ExterQual` and `ExterCond` values. This is the value we want assigned to both `Exterior1st` and `Exterior2nd` for the missing value.
 
 {% highlight python %}
 nbh_mode_list = ['MSZoning',
@@ -267,7 +267,7 @@ for ds in datasets:
 
 #### Functional ####
 
-It appears <code>Functional</code> measures how many safety deductions the house has / how much overall damage there is. I started this investigation by examining 4 features: <code>OverallCond</code>, <code>BsmtCond</code>, <code>ExterCond</code>, and <code>GarageCond</code>. These features could give us an idea of any damage to the home, and if <code>Functional</code> is affected.
+It appears `Functional` measures how many safety deductions the house has / how much overall damage there is. I started this investigation by examining 4 features: `OverallCond`, `BsmtCond`, `ExterCond`, and `GarageCond`. These features could give us an idea of any damage to the home, and if `Functional` is affected.
 
 {% highlight python %}
 condFeatures = [
@@ -294,7 +294,7 @@ Id     Func  OvC BC   EC  GC
 2474   NaN    1  Fa   Fa  Fa
 {% endhighlight %}
 
-Something a little funky to notice here: While house with <code>Id</code> 2217 has no basement, poor exterior condition, and poor garage condition, it still has an overall condition score of 5, while house with <code>Id</code> 2474 has a fair basement, fair exterior condition, and fair garage condition still only has an overall condition rating of 1. This doesn't really make sense under my hypothesis of a higher condition rating correlating with a higher functionality rating, so we had better keep investigating. 
+Something a little funky to notice here: While house with `Id` 2217 has no basement, poor exterior condition, and poor garage condition, it still has an overall condition score of 5, while house with `Id` 2474 has a fair basement, fair exterior condition, and fair garage condition still only has an overall condition rating of 1. This doesn't really make sense under my hypothesis of a higher condition rating correlating with a higher functionality rating, so we had better keep investigating. 
 
 We need to get the data looking like something we can numerically manipulate. This will take two steps:
 
@@ -370,9 +370,9 @@ BC                 0.096  0.140
 EC                        0.093
 {% endhighlight %}
 
-This doesn't bode well for my hypothesis at all - if we consider the condition scales linear, then the feature with the highest correlation to <code>Functional</code> is <code>BsmtCond</code> with a value of only 0.19.
+This doesn't bode well for my hypothesis at all - if we consider the condition scales linear, then the feature with the highest correlation to `Functional` is `BsmtCond` with a value of only 0.19.
 
-Another issue is that many homes have a <code>BsmtCond</code> value of 0 under the new mapping, and it is not immediately clear that if a house has a <code>BsmtCond</code> of 0, it does not have a lower quality basement than a home with a <code>BsmtCond</code> value of 1. There are a lot of assumptions here, and frankly for only 2 missing values, this entire expedition may have been overkill. Ultimately, we will fill the two <code>NA</code> values with the mode, and fondly remember how to use <code>map</code> for the next time we need to change from a categorical variable to a numerical one. Good thing I made a deep copy to play around with instead!
+Another issue is that many homes have a `BsmtCond` value of 0 under the new mapping, and it is not immediately clear that if a house has a `BsmtCond` of 0, it does not have a lower quality basement than a home with a `BsmtCond` value of 1. There are a lot of assumptions here, and frankly for only 2 missing values, this entire expedition may have been overkill. Ultimately, we will fill the two `NA` values with the mode, and fondly remember how to use `map` for the next time we need to change from a categorical variable to a numerical one. Good thing I made a deep copy to play around with instead!
 
 {% highlight python %}
 for ds in datasets:
@@ -405,9 +405,9 @@ There's a little more happening here than what appears at surface level, so let'
 
 #### LotFrontage ####
 
-This is one of the features which a significant number of samples (486 / 2919) are missing. Lot frontage is defined as "linear feet of street connected to property." Certainly we can draw the conclusion that <code>LotArea</code> might be correlated to <code>LotFrontage</code> since one is used to calculate the other, but there are a few other features that can help us interpolate.
+This is one of the features which a significant number of samples (486 / 2919) are missing. Lot frontage is defined as "linear feet of street connected to property." Certainly we can draw the conclusion that `LotArea` might be correlated to `LotFrontage` since one is used to calculate the other, but there are a few other features that can help us interpolate.
 
-First, let's see the correlation between <code>LotArea</code> and <code>LotFrontage</code>.
+First, let's see the correlation between `LotArea` and `LotFrontage`.
 
 {% highlight python %}
 merged_data[
@@ -419,7 +419,7 @@ LA  1.000000  0.489896
 LF  0.489896  1.000000
 {% endhighlight %}
 
-0.48 isn't a very strong correlation value - there isn't a clear linear relationship between our two features. However, we're going to examine another feature <code>LotConfig</code> which can tell us more about the relationship of <code>LotFrontage</code> and <code>LotArea</code>. 
+0.48 isn't a very strong correlation value - there isn't a clear linear relationship between our two features. However, we're going to examine another feature `LotConfig` which can tell us more about the relationship of `LotFrontage` and `LotArea`. 
 
 {% highlight text %}
 LotConfig:  Lot configuration
@@ -432,9 +432,9 @@ LotConfig:  Lot configuration
             of property
 {% endhighlight %}
 
-Considering how <code>Corner</code> lots may have twice as much <code>LotFrontage</code> as <code>Inside</code> lots, and <code>FR2</code>s and <code>FR3</code>s should have comparatively more as well, first sorting into <code>LotConfig</code> might help us calculate a more accurate prediction.
+Considering how `Corner` lots may have twice as much `LotFrontage` as `Inside` lots, and `FR2`s and `FR3`s should have comparatively more as well, first sorting into `LotConfig` might help us calculate a more accurate prediction.
 
-First, we can examine the distribution of the <code>LotConfig</code> feature of the samples which are missing <code>LotFrontage</code>:
+First, we can examine the distribution of the `LotConfig` feature of the samples which are missing `LotFrontage`:
 
 {% highlight python %}
 mask6 = merged_data['LotFrontage'].isna()
@@ -448,7 +448,7 @@ FR2         20
 FR3          4
 {% endhighlight %}
 
-~77% (374/486) of our samples with a missing <code></code> value have either Inside or Corner as a <code>LotConfig</code>. To get a better idea of the correlation between these variables, we can look at how a simple linear model lines up on the subplots of each configuration:
+~77% (374/486) of our samples with a missing `` value have either Inside or Corner as a `LotConfig`. To get a better idea of the correlation between these variables, we can look at how a simple linear model lines up on the subplots of each configuration:
 
 <section id='photos-grid'>
   <img src="/assets/images/2021-03-17/AreaFrontageSubplot0.svg" width='98%'>
@@ -458,11 +458,11 @@ FR3          4
   <img src="/assets/images/2021-03-17/AreaFrontageSubplot4.svg" width='98%'>
 </section>
 
-<center>The code used to generate these graphs is available <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/featureEngineeringGraphs.py">on my github</a>.</center>
+<center>The code used to generate these graphs is available <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/2021-03-17/featureEngineeringGraphs.py">on my github</a>.</center>
 
-Important to notice - I limited the <code>LotArea <= 80000</code> since there is one outlier which skews all figures off to the right, at over 200000 square feet (200 when scaled, as seen here).
+Important to notice - I limited the `LotArea <= 80000` since there is one outlier which skews all figures off to the right, at over 200000 square feet (200 when scaled, as seen here).
 
-You can also see there is an issue with <code>CulDSac</code> properties - the linear model does not fit the data at all. Below, you can see this reflected in the correlations between <code>LotArea</code> and <code>LotFrontage</code> when grouped by <code>LotConfig</code>.
+You can also see there is an issue with `CulDSac` properties - the linear model does not fit the data at all. Below, you can see this reflected in the correlations between `LotArea` and `LotFrontage` when grouped by `LotConfig`.
 
 {% highlight python %}
 mask6 = merged_data[
@@ -486,13 +486,13 @@ FR3       LA  1.000000  0.835891
           LF  0.835891  1.000000
 {% endhighlight %}
 
-Comparing this to our previous correlation calculation, there is a strict improvement in correlation for all <code>LotConfig</code> features except for <code>CulDSac</code> which could be due to the irregular shape of <code>CulDSac</code> lots, and their disproportionately small <code>LotFrontage</code> measure. I predict that, even with the poor predictions for <code>CulDSac</code> lots which make up 87 of our missing 486, we will have success using the linear relationship between <code>LotArea</code> and <code>LotFrontage</code> grouped by <code>LotConfig</code> to fill in our missing <code>LotFrontage</code> feature.
+Comparing this to our previous correlation calculation, there is a strict improvement in correlation for all `LotConfig` features except for `CulDSac` which could be due to the irregular shape of `CulDSac` lots, and their disproportionately small `LotFrontage` measure. I predict that, even with the poor predictions for `CulDSac` lots which make up 87 of our missing 486, we will have success using the linear relationship between `LotArea` and `LotFrontage` grouped by `LotConfig` to fill in our missing `LotFrontage` feature.
 
-To do this, I will separate <code>merged_data</code> into 5 subsets (one for each possible value of <code>LotConfig</code>), remove the <code>NA</code>s from each subset, and then use the resulting subset to train a linear model.
+To do this, I will separate `merged_data` into 5 subsets (one for each possible value of `LotConfig`), remove the `NA`s from each subset, and then use the resulting subset to train a linear model.
 
-The code used to do this is much easier to view <a href="">on github</a>, since I used a custom function, which, when applied to the data, is able to replace an <code>NA</code> <code>LotFrontage</code> value with a predicted one.
+The code used to do this is much easier to view <a href="">on github</a>, since I used a custom function, which, when applied to the data, is able to replace an `NA` `LotFrontage` value with a predicted one.
 
-To see how this affected our data, we can compare the previous graphs to updated ones - we should be able to see new data points running along our previously displayed line of best fit for each <code>LotConfig</code>.
+To see how this affected our data, we can compare the previous graphs to updated ones - we should be able to see new data points running along our previously displayed line of best fit for each `LotConfig`.
 
 <section id="photos-two">
   <img src="/assets/images/2021-03-17/AreaFrontageSubplot0.svg" width = "49%">
@@ -516,7 +516,7 @@ To see how this affected our data, we can compare the previous graphs to updated
   <img src="/assets/images/2021-03-17/AreaFrontageSubplotPostFill4.svg" width="49%">
 </section>
 
-It is not perfect, but it does let us keep <code>LotFrontage</code> as a feature, and this might help boost the performance of our algorithm. Another way we can visualize how the data was changed is by using <code>.describe()</code> on <code>merged_data['LotFrontage']</code> before and after filling.
+It is not perfect, but it does let us keep `LotFrontage` as a feature, and this might help boost the performance of our algorithm. Another way we can visualize how the data was changed is by using `.describe()` on `merged_data['LotFrontage']` before and after filling.
 
 {% highlight python %}
          Prefill  Postfill
@@ -532,7 +532,7 @@ max       313.00    806.26
 
 #### GarageArea / GarageCars ####
 
-First, we should confirm that the single sample that is missing both <code>GarageArea</code> and <code>GarageCars</code> has a <code>GarageType</code> other than <code>None</code>, otherwise we will simply fill these in with <code>0</code>.
+First, we should confirm that the single sample that is missing both `GarageArea` and `GarageCars` has a `GarageType` other than `None`, otherwise we will simply fill these in with `0`.
 
 {% highlight python %}
 merged_data[
@@ -546,7 +546,7 @@ merged_data[
 2576    Detchd    NaN    NaN
 {% endhighlight %}
 
-Now, we can fill these based on the average <code>GarageArea</code> of <code>Detchd</code> garages, and the most common value for <code>GarageCars</code> of <code>Detchd</code> garages.
+Now, we can fill these based on the average `GarageArea` of `Detchd` garages, and the most common value for `GarageCars` of `Detchd` garages.
 
 {% highlight python %}
 for ds in (
@@ -571,7 +571,7 @@ ___
 
 ### Reviewing the Cleaned Data ###
 
-We can now run the same script to generate our summary of the data - we should see there are no more <code>NA</code> values!
+We can now run the same script to generate our summary of the data - we should see there are no more `NA` values!
 
 <table border="1" class="dataframe">
   <thead>
@@ -622,10 +622,10 @@ We can now run the same script to generate our summary of the data - we should s
   </tbody>
 </table>
 
-<a class='read-more-link' href='/assets/cleaned-missing-values-summary.html'> See full table </a>
+<a class='read-more-link' href='/assets/html-tables/2021-03-17/cleaned-missing-values-responsive-asset-access.html'> See full table </a>
 
 No more NAs!!
 
-This has been a beast of a post, both in length and content! Now that we have a squeaky clean dataset, the next step will be some feature engineering, and possibly some exploration into feature selection using a Random Forest Regressor. 
+This has been a beast of a post, both in length and content! Now that we have a squeaky clean dataset, the next step will be some feature engineering, and possibly some exploration into feature selection using a Random Forest Regressor.
 
 Thank you for reading, until next time!
