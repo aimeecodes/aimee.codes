@@ -451,11 +451,11 @@ FR3          4
 ~77% (374/486) of our samples with a missing <code></code> value have either Inside or Corner as a <code>LotConfig</code>. To get a better idea of the correlation between these variables, we can look at how a simple linear model lines up on the subplots of each configuration:
 
 <section id='photos-grid'>
-  <img src="/assets/images/AreaFrontageSubplot0.svg" width='98%'>
-  <img src="/assets/images/AreaFrontageSubplot1.svg" width='98%'>
-  <img src="/assets/images/AreaFrontageSubplot2.svg" width='98%'>
-  <img src="/assets/images/AreaFrontageSubplot3.svg" width='98%'>
-  <img src="/assets/images/AreaFrontageSubplot4.svg" width='98%'>
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplot0.svg" width='98%'>
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplot1.svg" width='98%'>
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplot2.svg" width='98%'>
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplot3.svg" width='98%'>
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplot4.svg" width='98%'>
 </section>
 
 <center>The code used to generate these graphs is available <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/featureEngineeringGraphs.py">on my github</a>.</center>
@@ -495,32 +495,32 @@ The code used to do this is much easier to view <a href="">on github</a>, since 
 To see how this affected our data, we can compare the previous graphs to updated ones - we should be able to see new data points running along our previously displayed line of best fit for each <code>LotConfig</code>.
 
 <section id="photos-two">
-  <img src="/assets/images/AreaFrontageSubplot0.svg" width = "49%">
-  <img src="/assets/images/AreaFrontageSubplotPostFill0.svg" width="49%">
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplot0.svg" width = "49%">
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplotPostFill0.svg" width="49%">
 </section>
 
 <section id="photos-two">
-  <img src="/assets/images/AreaFrontageSubplot1.svg" width = "49%">
-  <img src="/assets/images/AreaFrontageSubplotPostFill1.svg" width="49%">
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplot1.svg" width = "49%">
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplotPostFill1.svg" width="49%">
 </section>
 <section id="photos-two">
-  <img src="/assets/images/AreaFrontageSubplot2.svg" width = "49%">
-  <img src="/assets/images/AreaFrontageSubplotPostFill2.svg" width="49%">
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplot2.svg" width = "49%">
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplotPostFill2.svg" width="49%">
 </section>
 <section id="photos-two">
-  <img src="/assets/images/AreaFrontageSubplot3.svg" width = "49%">
-  <img src="/assets/images/AreaFrontageSubplotPostFill3.svg" width="49%">
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplot3.svg" width = "49%">
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplotPostFill3.svg" width="49%">
 </section>
 <section id="photos-two">
-  <img src="/assets/images/AreaFrontageSubplot4.svg" width = "49%">
-  <img src="/assets/images/AreaFrontageSubplotPostFill4.svg" width="49%">
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplot4.svg" width = "49%">
+  <img src="/assets/images/2021-03-17/AreaFrontageSubplotPostFill4.svg" width="49%">
 </section>
 
 It is not perfect, but it does let us keep <code>LotFrontage</code> as a feature, and this might help boost the performance of our algorithm. Another way we can visualize how the data was changed is by using <code>.describe()</code> on <code>merged_data['LotFrontage']</code> before and after filling.
 
 {% highlight python %}
-         Prefill  Postfill 
-count    2433.00   2919.00    
+         Prefill  Postfill
+count    2433.00   2919.00
 mean       69.30     70.17
 std        23.34     27.03
 min        21.00     21.00
