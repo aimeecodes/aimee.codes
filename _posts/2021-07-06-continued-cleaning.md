@@ -122,11 +122,17 @@ I generated the same graphs, using the logarithm of the features to see the dist
 These graphs helped me make the decision not to use the IQR filtering rule because it removes too many data points. The only points I feel confident removing based on `GrLivArea` are the three points in the lower right corner of the `GrLivArea` graph, as the other two marked by my filter still appear to follow the trend. The other points I feel confident removing based on `LotArea` are the four on the right side of the `LotArea` graph, since these lot sizes are far larger than any other lot seen in our dataset.
 
 {% highlight python %}
-grlivareafilter = fulldatadf['GrLivArea'] >= 4000
-salepricefilter = fulldatadf['SalePrice'] <= 200000
-lotareafilter   = fulldatadf['LotArea']   >= 80000
+glafil =
+  fulldatadf['GrLivArea'] >= 4000
 
-fulldatadf = fulldatadf[~((grlivareafilter & salepricefilter) | lotareafilter)]
+spfil =
+  fulldatadf['SalePrice'] <= 200000
+
+lafil  =
+  fulldatadf['LotArea']   >= 80000
+
+fulldatadf =
+  fulldatadf[~((glafil & spfil) | lafil)]
 {% endhighlight %}
 
 ___
@@ -138,9 +144,14 @@ These are 3 features that are supposed to be nominal but have been encoded using
 As well, when I later use `PID` to get address data out of a database, it needs a leading `0` in the string.
 
 {% highlight python %}
-fulldatadf['MoSold'] = fulldatadf['MoSold'].map(str)
-fulldatadf['MSSubClass'] = fulldatadf['MSSubClass'].map(str)
-fulldatadf['PID'] = '0' + fulldatadf['PID'].map(str)
+fulldatadf['MoSold'] =
+  fulldatadf['MoSold'].map(str)
+
+fulldatadf['MSSubClass'] =
+  fulldatadf['MSSubClass'].map(str)
+
+fulldatadf['PID'] =
+  '0' + fulldatadf['PID'].map(str)
 {% endhighlight %}
 
 Note that I will not be including `PID` in the model, but will be using it to pull address data from <a href='http://www.cityofames.org/assessor/'>the Ames site</a> (a post in and of itself, for a later date).
@@ -231,7 +242,8 @@ By the documentation, `MSSubClass` is a combination of 3 features: `HouseStyle`,
 These graphs tell me that although PUD homes make up a smaller subset of the data and have less outliers, there are differences in mean price when sorted by PUD and non-PUD homes. From this, I will create a new binary column based on `MSSubClass` which will contain whether the home is part of a PUD or not and drop `MSSubClass`, as the remaining data can be found in `HouseStyle`, `BldgType` and `YearBuilt`.
 
 {% highlight python %}
-fulldatadf['isPUD'] = fulldatadf['MSSubClass'].apply(
+fulldatadf['isPUD'] =
+  fulldatadf['MSSubClass'].apply(
     lambda x: 1 if x in PUD_list else 0)
 {% endhighlight %}
 
@@ -250,10 +262,18 @@ A (agr)       2
 I (all)       2
 
 
-# filter out commercial, industrial, and agricultural properties
-MSZoning_cols = ['RL', 'RM', 'FV', 'RH']
-MSZoning_mask = fulldatadf['MSZoning'].isin(MSZoning_cols)
-fulldatadf = fulldatadf[MSZoning_mask]
+# filter out commercial, industrial,
+# and agricultural properties
+MSZoning_cols = ['RL',
+                 'RM',
+                 'FV',
+                 'RH']
+MSZoning_mask =
+  fulldatadf['MSZoning'].isin(
+    MSZoning_cols)
+
+fulldatadf =
+  fulldatadf[MSZoning_mask]
 {% endhighlight %}
 
 
@@ -262,30 +282,31 @@ fulldatadf = fulldatadf[MSZoning_mask]
 There are 9 conditions detailed here, including adjacency to arterial street (high capacity urban roads), adjacency to feeder street (a secondary road used to bring traffic to a major road), located within 200' of a railroad, adjacency to a railroad, and adjacency to or located near a positive off-site feature, like a park or greenbelt. The proximity to railroads usually means higher frequency of loud noises, and possible traffic delays, while proximity to larger roads can mean faster commute times, or higher freqency of loud noises. These features are also possibly confusing, as there are both positive and negative levels.
 
 {% highlight python %}
-fulldatadf[['Condition1','Condition2']].value_counts()
-Condition1  Condition2
-Norm        Norm          2522
-Feedr       Norm           155
-Artery      Norm            89
-RRAn        Norm            41
-PosN        Norm            35
-RRAe        Norm            28
-PosA        Norm            17
-RRAn        Feedr            8
-RRNn        Norm             7
-RRNe        Norm             6
-Feedr       Feedr            4
-PosN        PosN             4
-PosA        PosA             3
-Feedr       RRNn             2
-Artery      Artery           2
-Feedr       RRAn             1
-RRAn        Artery           1
-Feedr       RRAe             1
-            Artery           1
-Artery      PosA             1
-RRNn        Artery           1
-            Feedr            1
+fulldatadf[['Condition1',
+            'Condition2']].value_counts()
+Cond1   Cond2
+Norm    Norm     2522
+Feedr   Norm     155
+Artery  Norm     89
+RRAn    Norm     41
+PosN    Norm     35
+RRAe    Norm     28
+PosA    Norm     17
+RRAn    Feedr    8
+RRNn    Norm     7
+RRNe    Norm     6
+Feedr   Feedr    4
+PosN    PosN     4
+PosA    PosA     3
+Feedr   RRNn     2
+Artery  Artery   2
+Feedr   RRAn     1
+RRAn    Artery   1
+Feedr   RRAe     1
+        Artery   1
+Artery  PosA     1
+RRNn    Artery   1
+        Feedr    1
 {% endhighlight %}
 
 Based on the numbers here, I will create 4 new binary features:
@@ -365,18 +386,21 @@ One other issue is of alphabetical ordering - `Exterior1st` and `Exterior2nd` do
 
 {% highlight python %}
 # post merge, last 10 groups
-fulldatadf.groupby('Exterior1st')['Exterior2nd'].value_counts()[-10:]
-Exterior1st  Exterior2nd
-Stucco       Stucco           32
-             Wd Sdng           5
-             WdShing           5
-             VinylSd           1
-VinylSd      VinylSd        1006
-             WdShing           9
-             Wd Sdng           5
-Wd Sdng      Wd Sdng         358
-             WdShing          20
-WdShing      WdShing          41
+fulldatadf.groupby(
+  'Exterior1st')[
+    'Exterior2nd'].value_counts()[-10:]
+	
+Ext1    Ext2
+Stucco  Stucco  32
+        Wd Sdng 5
+        WdShing 5
+        VinylSd 1
+VinylSd VinylSd 1006
+        WdShing 9
+        Wd Sdng 5
+Wd Sdng Wd Sdng 358
+        WdShing 20
+WdShing WdShing 41
 {% endhighlight %}
 
 #### MasVnrType ####
@@ -424,7 +448,9 @@ fulldatadf['CentralAir'].value_counts()
 #### MiscFeature ####
 I will not be merging anything here, despite low cardinality, due to the large differences in `MiscVal` when grouped by levels, as seen below:
 {% highlight python %}
-fulldatadf.groupby('MiscFeature')['MiscVal'].mean()
+fulldatadf.groupby(
+  'MiscFeature')['MiscVal'].mean()
+  
 MiscFeature
 Gar2    8760.00
 TenC    2000.00
@@ -519,11 +545,17 @@ In this case, even though `Abnorml`, `Family`, `Alloca`, and `AdjLand` make up 9
 {% highlight python %}
 # filter 'SaleCondition' by including
 # Normal and Partial sales only
-salecondition_cols = ['Normal', 'Partial']
+salecondition_cols = [
+  'Normal',
+  'Partial']
 
-salecondition_mask = fulldatadf['SaleCondition'].isin(salecondition_cols)
+salecondition_mask =
+  fulldatadf[
+    'SaleCondition'].isin(
+	  salecondition_cols)
 
-fulldatadf = fulldatadf[salecondition_mask]
+fulldatadf =
+  fulldatadf[salecondition_mask]
 {% endhighlight %}
 
 ___
