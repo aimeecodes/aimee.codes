@@ -530,7 +530,7 @@ ___
 
 ### Final comments ###
 
-A reminder that all cleaning code can be found <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/2021-07-06/working-no-graphs.py">on my github</a>, and a quick recap of what the data looks like after cleaning and filtering:
+A reminder that all cleaning code can be found <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/2021-07-06/working-no-graphs.py">on my github</a>. If you want any of the graphing code, check out the full script [here](https://github.com/aimosjo/aimee.codes/blob/main/assets/code/2021-07-06/working.py) . Here's a quick recap of what shape the data is in after cleaning and filtering:
 
 {% highlight python %}
 fulldatadf.shape
@@ -560,7 +560,7 @@ ___
 
 ### What\'s up next ###
 
-* In one of my next posts, I want to talk about building a python module with all of my cleaning functions inside, so my `working.py` script remains readable, and functions are easily repeatable for my next data cleaning project
+* In one of my next posts, I want to talk about building my python module `cleaning.py` with all of my cleaning functions inside, so my `working.py` script remains readable, and functions are easily repeatable for my next data cleaning project
 
 * In another post, I will talk about the process of scraping web results in order to obtain address data to use with an API that uses GPS coordinates to calculate the distance between a home and specific features within Ames, Iowa
 
