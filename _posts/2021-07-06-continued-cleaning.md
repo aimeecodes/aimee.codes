@@ -349,7 +349,7 @@ Mansard      11
 {% endhighlight %}
 
 #### RoofMatl ####
-A lot of these have single samples - we\'re going to group everything besides `CompShg` and `Tar&Grv` under a generic `Other`.
+A lot of these have single samples - we\'re going to group everything besides `CompShg` under a generic `Other`.
 
 {% highlight python %}
 # after merge
