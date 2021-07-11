@@ -594,9 +594,7 @@ ___
 
 * In one of my next posts, I want to talk about building my python module `cleaning.py` with all of my cleaning functions inside, so my `working.py` script remains readable, and functions are easily repeatable for my next data cleaning project
 
-* In another post, I will talk about the process of scraping web results in order to obtain address data to use with an API that uses GPS coordinates to calculate the distance between a home and specific features within Ames, Iowa
-
-* Finally, I want make a post about building the model, and testing it against unseen data obtained from the Ames site.
+More samples and additional information for this dataset are difficult to come by, so any feature engineering will come from currently available data, and testing will occur only on the samples in the available file.
 
 If you see anything in my posts that you want to comment on, [send me an email](mailto:contact@aimee.codes) and let me know the issue!
 
