@@ -154,7 +154,7 @@ fulldatadf['PID'] =
   '0' + fulldatadf['PID'].map(str)
 {% endhighlight %}
 
-Note that I will not be including `PID` in the model, but will be using it to pull address data from <a href='http://www.cityofames.org/assessor/'>the Ames site</a> (a post in and of itself, for a later date).
+Note that I will not be including `PID` in the model.
 
 ___
 
@@ -189,7 +189,7 @@ remap(fulldatadf,
 ___
 
 ### Nominal features ###
-These are all categorical features that have no implicit ordering, so we will try to either merge low cardinality levels into a broader bin, or create new features using the levels within a feature. 
+These are all categorical features that have no implicit ordering, so we will try to either merge low cardinality levels into a broader bin, or create new features using the levels within a feature.
 
 `PID`, `MSSubClass`, `MSZoning`, `Street`, `Alley`, `LandContour`, `LotConfig`, `Neighborhood`, `Condition1`, `Condition2`, `BldgType`, `HouseStyle`, `RoofStyle`, `RoofMatl`, `Exterior1`, `Exterior2`, `MasVnrType`, `Foundation`, `Heating`, `CentralAir`, `GarageType`, `MiscFeature`, `SaleType`, `SaleCondition`
 
