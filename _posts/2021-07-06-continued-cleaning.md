@@ -141,7 +141,7 @@ ___
 
 These are 3 features that are supposed to be nominal but have been encoded using integers: `PID`, `MoSold`, and `MSSubClass`. Leaving these as numerical adds a context of weight to each feature that should not be present.
 
-As well, when I later use `PID` to get address data out of a database, it needs a leading `0` in the string.
+As discussed in the data\'s documentation, `PID` needs a leading `0` in the string when looking up additional information on the assessor\'s website.
 
 {% highlight python %}
 fulldatadf['MoSold'] =
