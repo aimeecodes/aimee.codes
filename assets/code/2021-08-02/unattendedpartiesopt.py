@@ -1,7 +1,7 @@
 """ Unattended parties optimized
-Uses a defined number of people to generate a large number
-of simulated birthdays, then checks if anyone shares a birthday.
-Runs this 100,000 times."""
+Uses arg1 number of people to generate 100,000
+of simulated birthdays using arg2 number of processes,
+then checks if anyone shares a birthday."""
 
 import random, time, sys
 from multiprocessing import Pool
