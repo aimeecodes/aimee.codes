@@ -23,10 +23,10 @@ While the book\'s code is very clear, I want to pare the program down:
 {% highlight python %}
 def getBirthdays(n):
     """ n is an integer;
-    getBirthdays generates
-	n birthdays for n people,
-    returns a list of birthdays
-	of length n """
+        getBirthdays generates
+        n birthdays for n people,
+        returns a list of birthdays
+        of length n """
     birthdays = [random.randint(
 	  1,365) for i in range(n)]
     return birthdays
