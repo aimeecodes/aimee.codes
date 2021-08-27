@@ -202,6 +202,6 @@ Clearly `imap_unordered`, pardon my French, whips ass, and so does that Ryzen 9 
 
 ___
 
-Seeing the huge time delay between `map` and `imap_unordered` got me thinking about using `imap_unordered` with a results dictionary, which lead me down the stack hole to `multiprocessing.Manager` objects and the `itertools` library. While I dig myself out, feel free to check out the script from this post `unattendedpartiesopt.py` [here](https://github.com/aimosjo/aimee.codes/blob/main/assets/code/2021-08-02/unattendedpartiesopt.py) on my github. Perhaps I will have enough material to write a post on `itertools` by the time I emerge!
+Seeing the huge time delay between `map` and `imap_unordered` got me thinking about using `imap_unordered` with a results dictionary, which lead me down the stack hole to `multiprocessing.Manager` objects and the `itertools` library. While I dig myself out, feel free to check out the script from this post `unattendedpartiesopt.py` [here](https://github.com/aimeecodes/aimee.codes/blob/main/assets/code/2021-08-02/unattendedpartiesopt.py) on my github. Perhaps I will have enough material to write a post on `itertools` by the time I emerge!
 
 Until next time!

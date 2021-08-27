@@ -241,7 +241,7 @@ test_data.at[1444, 'MSZoning']
 'RL'
 {% endhighlight %}
 
-Great, it works exactly like it ought to! You can find my full cleaning script posted on my <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/2020-11-11/iowaprerun.py">github</a>.
+Great, it works exactly like it ought to! You can find my full cleaning script posted on my <a href="https://github.com/aimeecodes/aimee.codes/blob/main/assets/code/2020-11-11/iowaprerun.py">github</a>.
 
 ___
 

@@ -120,7 +120,7 @@ This is easily visualized in the table below:
 
 <a class='read-more-link' href='/assets/html-tables/2021-03-17/missing-values-responsive-asset-access.html'> See full table </a>
 
-<center>The script that generated this table is available on <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/2021-03-17/missingValuesSummary.py">my github</a>.</center>
+<center>The script that generated this table is available on <a href="https://github.com/aimeecodes/aimee.codes/blob/main/assets/code/2021-03-17/missingValuesSummary.py">my github</a>.</center>
 
 We've got our work laid out, time to start cleaning!
 <br>
@@ -458,7 +458,7 @@ FR3          4
   <img src="/assets/images/2021-03-17/AreaFrontageSubplot4.svg" width='98%'>
 </section>
 
-<center>The code used to generate these graphs is available <a href="https://github.com/aimosjo/aimee.codes/blob/main/assets/code/2021-03-17/featureEngineeringGraphs.py">on my github</a>.</center>
+<center>The code used to generate these graphs is available <a href="https://github.com/aimeecodes/aimee.codes/blob/main/assets/code/2021-03-17/featureEngineeringGraphs.py">on my github</a>.</center>
 
 Important to notice - I limited the `LotArea <= 80000` since there is one outlier which skews all figures off to the right, at over 200000 square feet (200 when scaled, as seen here).
 
