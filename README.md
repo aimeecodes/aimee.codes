@@ -1,4 +1,4 @@
-# aimosjo.github.io
+# aimeecodes.github.io
 
 <!-- each page has it's own folder
 	(tags/index.html, 
